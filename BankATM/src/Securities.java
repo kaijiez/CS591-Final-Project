@@ -1,4 +1,6 @@
 import java.util.*;
+
+//securities account for customers to open up
 public class Securities extends Accounts {
     protected ArrayList<Collateral> collateral;
     protected ArrayList<Stock> stocks;

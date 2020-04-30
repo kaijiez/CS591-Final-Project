@@ -1,3 +1,4 @@
+// Abstract class over securities, checking, and saving
 public abstract class Accounts{
     protected double current_amount;
     protected String account_id;

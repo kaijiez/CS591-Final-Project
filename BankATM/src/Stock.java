@@ -1,3 +1,4 @@
+// Stock object that customers can buy from stock market
 public class Stock {
     //unique id of each stock
     protected String id;

@@ -1,3 +1,4 @@
+//loan object that customers can take out from their account
 public class Loan {
     protected String name;
     protected double borrowed_amount;

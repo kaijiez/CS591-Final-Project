@@ -1,3 +1,4 @@
+// Collateral object that customers can put up to take out a loan
 public class Collateral {
     protected String name;
     protected boolean used;
