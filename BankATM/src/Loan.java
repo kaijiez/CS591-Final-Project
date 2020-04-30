@@ -1,10 +1,12 @@
 public class Loan {
     protected String name;
     protected double borrowed_amount;
+    protected Collateral collateral;
 
-    public Loan (String name, double borrowed_amount){
+    public Loan (String name, double borrowed_amount, Collateral collateral){
         this.name = name;
         this.borrowed_amount = borrowed_amount;
+        this.collateral = collateral;
     }
 
     public double getBorrowed_amount() {
