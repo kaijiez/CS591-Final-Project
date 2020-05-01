@@ -7,6 +7,7 @@ public class Securities extends Accounts {
 
     public Securities(double starting_amount, String account_id){
         super(starting_amount, account_id);
+        this.type = "Securities";
     }
 
     //money that is transferred from savings account
