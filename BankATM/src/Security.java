@@ -1,12 +1,12 @@
 import java.util.*;
 
 //securities account for customers to open up
-public class Securities extends Accounts {
+public class Security extends Accounts {
     protected ArrayList<Stock> stocks;
 
-    public Securities(double starting_amount, String account_id){
+    public Security(double starting_amount, String account_id){
         super(starting_amount, account_id);
-        this.type = "Securities";
+        this.type = "Security";
     }
 
     //money that is transferred from savings account
