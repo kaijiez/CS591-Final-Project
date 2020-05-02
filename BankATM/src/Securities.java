@@ -2,7 +2,6 @@ import java.util.*;
 
 //securities account for customers to open up
 public class Securities extends Accounts {
-    protected ArrayList<Collateral> collateral;
     protected ArrayList<Stock> stocks;
 
     public Securities(double starting_amount, String account_id){
@@ -24,6 +23,10 @@ public class Securities extends Accounts {
         stocks.add(stock);
         System.out.println("Stock purchased!");
         return true;
+    }
+
+    public ArrayList<Stock> getStocks() {
+        return this.stocks;
     }
 
     //receiving money from selling stock and removing from owned stock list
