@@ -16,6 +16,7 @@ public abstract class Accounts{
     public String toString(){
         String ret = "";
         ret += "Total amount of money in " + this.type + " account: " + this.current_amount + "\n";
+        ret += "Account ID number: " + this.account_id + "\n";
         return ret;
     }
 }
