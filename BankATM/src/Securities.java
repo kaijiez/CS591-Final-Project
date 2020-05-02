@@ -32,13 +32,4 @@ public class Securities extends Accounts {
         this.stocks.remove(index);
     }
 
-    public String toString(){
-        String ret = "";
-        ret += super.toString();
-        for (Stock stock: this.stocks){
-            ret += stock.toString();
-        }
-        return ret;
-    }
-
 }
