@@ -34,7 +34,10 @@ public class Securities extends Accounts {
 
     public String toString(){
         String ret = "";
-        ret += "Total amount of money in security account: " + this.current_amount;
+        ret += super.toString();
+        for (Stock stock: this.stocks){
+            ret += stock.toString();
+        }
         return ret;
     }
 
