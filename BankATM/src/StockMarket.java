@@ -4,4 +4,9 @@ import java.util.*;
 public class StockMarket {
     protected ArrayList<Stock> allStocks;
 
+    public StockMarket(){
+        allStocks = new ArrayList<Stock>();
+    }
+
+
 }
