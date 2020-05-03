@@ -84,7 +84,7 @@ public class Customer extends BankUser {
 	//check if the saving account has over $5000, and return the amount
 	private int checkOpenSecurities(String savingAccountId, double amount){
 		
-		for(Accounts a: accounts){
+		for(Account a: accounts){
 			if(a.getId().equals(savingAccountId)){
 				if(a.getAmount()>=5000 && a.getAmount()-amount>=2500 && amount>=1000){
 					return (int) a.getAmount();

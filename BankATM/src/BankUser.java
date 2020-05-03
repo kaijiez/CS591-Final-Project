@@ -6,13 +6,13 @@ public abstract class BankUser {
 	protected String id;
 	protected String Username;
 	protected String Password;
-	protected ArrayList<Accounts> accounts;
+	protected ArrayList<Account> accounts;
 
 	public BankUser(String Username, String Password){
 		this.id="";
 		this.Username = Username;
 		this.Password = Password;
-		accounts = new ArrayList<Accounts>();
+		accounts = new ArrayList<Account>();
 	}
 	
 	

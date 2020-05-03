@@ -21,4 +21,8 @@ public class Collateral {
     public void setUsed(boolean used) {
         this.used = used;
     }
+
+    public String toString(){
+        return this.name;
+    }
 }
