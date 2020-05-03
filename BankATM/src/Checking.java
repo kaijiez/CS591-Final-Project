@@ -7,13 +7,15 @@ public class Checking extends Account implements Transaction{
     }
 
     @Override
-    public void withdraw(double amount) {
+    public boolean withdraw(double amount) {
         if (this.current_amount - amount < 0){
             System.out.println("Unable to withdraw amount due to insufficient funds.");
+            return false;
         }
         else{
             System.out.println("Money withdrawn!");
             this.current_amount -= amount;
+            return true;
         }
     }
 
