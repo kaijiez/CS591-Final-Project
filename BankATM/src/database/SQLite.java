@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class SQLite {
 	
@@ -15,9 +17,9 @@ public class SQLite {
 	public static void init(){
 		SQLite.createNewDatabase("Bank.db");
 		
-		SQLite.createNewTable("Customers", new String[]{"id","Name"}, 
-										   new String[]{"INTEGER","TEXT"}, 
-										   new String[]{"PRIMARY KEY","NOT NULL"},
+		SQLite.createNewTable("Customers", new String[]{"id","Name","Username","Password"}, 
+										   new String[]{"INTEGER","TEXT","TEXT","TEXT"}, 
+										   new String[]{"PRIMARY KEY","none","NOT NULL","NOT NULL"},
 										   new String[]{});
 		SQLite.createNewTable("Accounts", new String[]{"id", "Type","Amount","Customer_id"}, 
 										  new String[]{"integer","text","real","integer"}, 
@@ -48,9 +50,11 @@ public class SQLite {
 		String url = "jdbc:sqlite:./src/database/" + dbName;
         
         try {
-        	if(conn==null){
+//        	if(conn==null){
+//        		System.out.println("not connected");
         		conn = DriverManager.getConnection(url);
-        	}
+//        		System.out.println("connected");
+//        	}
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -142,6 +146,19 @@ public class SQLite {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        
+//        Connection conn=null;
+//        Statement stmt=null;
+//        try {
+//        	conn = connect("Bank.db");
+//          stmt = conn.createStatement();
+//            // create a new table
+//            stmt.execute(sql);
+//                
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+        
     }
 	
 	// id refers to the unique id for the record in the table
@@ -166,10 +183,11 @@ public class SQLite {
 	//values:	ex:["value","2","3.3"]
 	//types:	ex:[text,real,integer]
 	//no validation for foreign key
-	public static void insert(String tableName, String[] columns, String[] values, String[] types) {
+	public static int insert(String tableName, String[] columns, String[] values, String[] types) {
 		
         String columnString="";
         String valueString="";
+      
         try{
         	for(int i=0; i<columns.length;i++){
             	if(i==0){
@@ -214,42 +232,57 @@ public class SQLite {
         		}
         	}     
             pstmt.executeUpdate();
+            ResultSet rs=null;
+            rs = pstmt.getGeneratedKeys();
+            //return the newly generated primary key
+            if(rs != null && rs.next()){
+//                System.out.println("Generated Emp Id: "+rs.getInt(1));
+                return rs.getInt(1);
+            }
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return -1;
     }
 	
-    public static void query(String query, String[] columns, String[] columnTypes){
+    public static ArrayList<ArrayList<String>> query(String query, String[] columns, String[] columnTypes){
 //        String sql = "SELECT id, name, capacity FROM test";
         
         try (Connection conn = connect("Bank.db");
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(query)){
             
-        	String res="";
+        	String res="";	//for display
+        	ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();	//result to be result
             // loop through the result set
             while (rs.next()) {
-
-                
+            	//store values by row and col
+                ArrayList<String> row = new ArrayList<String>();
                 for(int i=0; i<columns.length;i++){
             		if(columnTypes[i].toLowerCase().equals("text")){
             			res+=rs.getString(columns[i]) + "\t";
+            			row.add(rs.getString(columns[i]));
             		
             		}
             		else if(columnTypes[i].toLowerCase().equals("real")){
             			res+=rs.getDouble(columns[i]) + "\t"; 
+            			row.add(Double.toString(rs.getDouble(columns[i])));
             		}
             		else if(columnTypes[i].toLowerCase().equals("integer")){
             			res+=rs.getInt(columns[i])+"\t";
+            			row.add(Integer.toString(rs.getInt(columns[i])));
             		}
             	}     
                 res+="\n";
+                result.add(row);
             }
             System.out.println(res);
+            return result;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return null;
     }
     
 // simple update query in this format

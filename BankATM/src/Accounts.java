@@ -12,4 +12,12 @@ public abstract class Accounts{
     public String getType() {
         return this.type;
     }
+    
+    public String getId(){
+    	return account_id;
+    }
+    
+    public double getAmount(){
+    	return current_amount;
+    }
 }
