@@ -31,18 +31,6 @@ public class Securities extends Account{
         return this.stocks;
     }
 
-    //print all current stocks
-    public void see_all_stocks(){
-        if(this.stocks.size() != 0) {
-            for (Stock s : this.stocks) {
-                System.out.println(s);
-            }
-        }
-        else{
-            System.out.println("Currently own no stocks, take a look at the stock market!");
-        }
-    }
-
     //receiving money from selling stock and removing from owned stock list
     public void sell_stock(int index){
         this.current_amount += this.stocks.get(index).getPrice();
