@@ -1,18 +1,20 @@
 import java.util.*;
 
 //securities account for customers to open up
-public class Securities extends Accounts {
+public class Securities extends Account{
     protected ArrayList<Stock> stocks;
 
     public Securities(double starting_amount, String account_id){
         super(starting_amount, account_id);
         this.type = "Securities";
+        this.stocks = new ArrayList<>();
     }
 
     //money that is transferred from savings account
     public void transfer_from_saving(double amount){
         this.current_amount += amount;
     }
+
 
     //adding a stock to stock collection after purchase
     public boolean purchase_stock(Stock stock){
@@ -29,6 +31,18 @@ public class Securities extends Accounts {
         return this.stocks;
     }
 
+    //print all current stocks
+    public void see_all_stocks(){
+        if(this.stocks.size() != 0) {
+            for (Stock s : this.stocks) {
+                System.out.println(s);
+            }
+        }
+        else{
+            System.out.println("Currently own no stocks, take a look at the stock market!");
+        }
+    }
+
     //receiving money from selling stock and removing from owned stock list
     public void sell_stock(int index){
         this.current_amount += this.stocks.get(index).getPrice();
@@ -43,5 +57,4 @@ public class Securities extends Accounts {
         }
         return ret;
     }
-
 }
