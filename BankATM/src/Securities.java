@@ -1,7 +1,7 @@
 import java.util.*;
 
 //securities account for customers to open up
-public class Securities extends Accounts {
+public class Securities extends Account {
     protected ArrayList<Stock> stocks;
 
     public Securities(double starting_amount, String account_id){

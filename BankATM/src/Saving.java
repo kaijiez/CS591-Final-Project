@@ -1,5 +1,5 @@
 // Saving Account object that customers can have with methods for actions with money in this account
-public class Saving extends Accounts{
+public class Saving extends Account{
     protected static double securities_transfer_minimum = 1000;
     protected static double minimum_after_securities_transfer = 2500;
 
