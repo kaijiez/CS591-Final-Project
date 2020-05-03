@@ -68,6 +68,8 @@ public class CustomerAccountsPage extends JFrame implements ActionListener{
         else if(e.getSource().equals(makeChange)){
             System.out.println("bring to accountChangePage(getSelectedText)");
             details.setText(Jtest.getSelectedValue().toString());
+            //index arraylsit here
+            //new CustomerAccountChangePage(cust.accountsaccountList.getSelectedIndex())
             
         }
         
