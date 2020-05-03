@@ -12,6 +12,14 @@ public abstract class Account {
     public String getType() {
         return this.type;
     }
+    
+    public String getId(){
+    	return account_id;
+    }
+    
+    public double getAmount(){
+    	return current_amount;
+    }
 
     public String toString(){
         String ret = "";
