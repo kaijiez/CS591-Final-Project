@@ -25,22 +25,26 @@ public class Saving extends Account implements Transaction{
     }
 
     @Override
-    public void withdraw(double amount) {
+    public boolean withdraw(double amount) {
         if(this.securities_exist){
             if(this.current_amount-amount < this.minimum_after_securities_transfer){
                 System.out.println("Unable to withdraw and you must have at least " + this.minimum_after_securities_transfer + "in savings");
+                return false;
             }
             else{
                 System.out.println("Money withdrawn!");
                 this.current_amount -= amount;
+                return true;
             }
         }
         else if (this.current_amount - amount < 0){
             System.out.println("Unable to withdraw due to insufficient funds.");
+            return false;
         }
         else{
             System.out.println("Money withdrawn!");
             this.current_amount -= amount;
+            return true;
         }
     }
 
