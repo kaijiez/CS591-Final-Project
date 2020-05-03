@@ -48,13 +48,4 @@ public class Securities extends Account{
         this.current_amount += this.stocks.get(index).getPrice();
         this.stocks.remove(index);
     }
-
-    public String toString(){
-        String ret = "";
-        ret += super.toString();
-        for (Stock stock: this.stocks){
-            ret += stock.toString();
-        }
-        return ret;
-    }
 }
