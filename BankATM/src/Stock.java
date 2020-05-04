@@ -7,10 +7,12 @@ public class Stock {
     //unique id of each stock
     protected String id;
     protected double price;
-    private String name;
+    protected String name;
+    protected double original_price;
 
     public Stock(String id, String name,double starting_price){
         this.price = starting_price;
+        this.original_price = starting_price;
         this.name = name;
         this.id = id;
     }
@@ -22,6 +24,10 @@ public class Stock {
     	SQLite.update("StockMarket", "id = "+id, new String[]{"Price"}, 
     											 new String[]{Double.toString(price)}, 
     											 new String[]{"real"});
+    }
+
+    public double get_unrealized_price(){
+        return this.original_price-this.price;
     }
     
     public double getPrice() {
