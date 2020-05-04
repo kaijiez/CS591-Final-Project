@@ -3,6 +3,7 @@ public class Saving extends Account implements Transaction{
     protected static double securities_transfer_minimum = 1000;
     protected static double minimum_after_securities_transfer = 2500;
     protected boolean securities_exist;
+    protected Saving savingAccount;
 
     public Saving(double starting_amount, String account_id){
         super(starting_amount, account_id);

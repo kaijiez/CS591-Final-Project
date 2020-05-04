@@ -36,12 +36,18 @@ public class StockMarket {
     	return allStocks;
     }
     
-    public void addStock(String name, double price){
-    	
+    public void createStock(String name, double price){
+//    	Stock stock = new Stock(name,price);
+    	int newId=SQLite.insert("StockMarket", new String[]{"Name","Price"}, 
+    								 new String[]{name,Double.toString(price)}, 
+    								 new String[]{"text","real"});
+    	Stock stock = new Stock(Integer.toString(newId),name,price);
+    	allStocks.add(stock);
     }
     
     public void removeStock(String id){
     	
+    	SQLite.delete("StockMarket", Integer.parseInt(id));
     }
 
 
