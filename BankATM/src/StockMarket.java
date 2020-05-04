@@ -4,7 +4,8 @@ import database.SQLite;
 
 //keeps track of all existing stocks the bank controls
 public class StockMarket {
-    protected ArrayList<Stock> allStocks;
+    protected static ArrayList<Stock> allStocks;
+    protected static ArrayList<Stock> open_positions;
     
     public StockMarket(){
     	allStocks = new ArrayList<Stock>();
@@ -19,7 +20,7 @@ public class StockMarket {
     	
     	if(res!=null){
     		for(int row=0; row<res.size();row++){
-        		allStocks.add(new Stock(res.get(row).get(0),res.get(row).get(1), Double.parseDouble(res.get(row).get(2))));
+                allStocks.add(new Stock(res.get(row).get(0),res.get(row).get(1), Double.parseDouble(res.get(row).get(2))));
         	}
     	}
     	
@@ -35,9 +36,17 @@ public class StockMarket {
     public ArrayList<Stock> getStocks(){
     	return allStocks;
     }
+
+    public ArrayList<Stock> get_open_positions(){
+        return open_positions;
+    }
+
+    public void add_to_open_positions(Stock stock){
+        open_positions.add(stock);
+    }
+
     
     public void addStock(String name, double price){
-    	
     }
     
     public void removeStock(String id){
