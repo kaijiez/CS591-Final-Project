@@ -199,8 +199,15 @@ public class Customer extends BankUser {
 						  new String[]{"integer","text","integer","text"});
 		if(res!=null){
 			for(int row=0;row<res.size();row++){
+				Account acc=null;
+				for(Account a:accounts){
+					if(a.getId().equals(id)){
+						acc = a;
+					}
+				}
+				double displayAmount= CurrencyConverter.convert_currency(acc.getPreferredCurrency(),acc.getAmount());
 				display+=res.get(row).get(1)+"Account id "+res.get(row).get(0)+" made a transaction of "
-							+res.get(row).get(2)+" on "+res.get(row).get(3)+"\n";
+							+Double.toString(displayAmount)+" on "+res.get(row).get(3)+"\n";
 			}
 		}
 		return display;
@@ -221,7 +228,8 @@ public class Customer extends BankUser {
 	public String viewAllAccountsBalances(){
 		String display="";
 		for(Account a: accounts){
-			display+=a.getType()+" account has "+a.getAmount()+"\n";
+			double displayAmount= CurrencyConverter.convert_currency(a.getPreferredCurrency(),a.getAmount());
+			display+=a.getType()+" account has "+Double.toString(displayAmount)+"\n";
 		}
 		return display;
 	}
@@ -260,6 +268,7 @@ public class Customer extends BankUser {
 		return loans;
 	}
 	
+//	return arraylist of securities 
 	public ArrayList<Securities> retrieveSecurities(){
 		ArrayList<Securities> securities = new ArrayList<Securities>();
 		for (Account a: accounts){

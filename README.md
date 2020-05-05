@@ -1,8 +1,8 @@
 # CS591-Final-Project
 Group #3
 
-Pat Duffil - U
-Kaijie Zhou - U
+Pat Duffil - U84513865
+Kaijie Zhou - U54295267
 Cathy Kim - U51788489
 
 Compilation Instructions:
@@ -30,6 +30,14 @@ Customer: Regular user of bank who can have checking accounts, saving accounts, 
 Transaction: Interface that only checking and saving accounts use to implement withdraw/deposit (we assume that the securities account cannot be directly withdrawn/depositied into but changed via transfers from saving accounts)
 
 BankDriver: simply starting point that initializes a lot of pre-bank creation objects (e.g. bank manager, bank's stocks)
+
+Currency: represents physical currencies supported by the bank, abstract class with methods/attributes inherited by subclasses
+    -Euro
+    -Canadian Dollars
+    -Australian Dollars
+    -Pounds
+    -USD
+CurrencyConverter: class that converts any money to chosen currency
 
 Front-End pages:
 CreateAccountPage: where users will choose username/password for new account

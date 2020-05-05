@@ -8,8 +8,10 @@ public abstract class Account {
     protected double current_amount;
     protected String account_id;
     protected String type = "Account";
+
     protected String dateCreated;
     protected String customer_id;
+    protected Currency preferred_currency;
 
 
     public Account(double starting_amount, String account_id, String dateCreated){
@@ -17,6 +19,7 @@ public abstract class Account {
         this.account_id = account_id;
         this.dateCreated = dateCreated;
         init();
+        this.preferred_currency = new USD(this.current_amount);
     }
     
     //initialize current amount
@@ -49,6 +52,14 @@ public abstract class Account {
     
     public double getAmount(){
     	return current_amount;
+    }
+    
+    public void setPreferredCurrency(Currency c){
+    	preferred_currency = c;
+    }
+    
+    public Currency getPreferredCurrency(){
+    	return preferred_currency;
     }
     
   //format mm/dd
