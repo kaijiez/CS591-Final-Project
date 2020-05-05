@@ -24,7 +24,7 @@ public abstract class Account {
     
     //initialize current amount
     private void init(){
-    	String query="SELECT * FROM Accounts WHERE Account_id = "+account_id;
+    	String query="SELECT * FROM Accounts WHERE id = "+account_id;
     	ArrayList<ArrayList<String >> res=SQLite.query(query, new String[]{"Amount"},
     														  new String[]{"real"});
     	if(res!=null && res.size()>0){

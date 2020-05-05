@@ -6,8 +6,9 @@ public class OpenAccountPage extends JFrame implements ActionListener{
     JButton confirm, cancel;
     JRadioButton checking, savings;
     JFormattedTextField amount;
-    public OpenAccountPage(/*customer customer*/){
-        //cust = customer;
+    Customer cust;
+    public OpenAccountPage(Customer cust){
+        this.cust = cust;
         confirm = new JButton("Confirm open account");
         confirm.setBounds(400, 650, 200, 100);
         confirm.addActionListener(this);
@@ -21,7 +22,7 @@ public class OpenAccountPage extends JFrame implements ActionListener{
         type.setBounds(300, 100, 400, 100);
         add(type);
 
-        JRadioButton checking = new JRadioButton("Checking");
+        checking = new JRadioButton("Checking");
         checking.setBounds(300, 302, 100, 50);
         add(checking);
         savings = new JRadioButton("Savings");
@@ -58,6 +59,8 @@ public class OpenAccountPage extends JFrame implements ActionListener{
         else if(source.equals(confirm)){
             double money = ((Number)amount.getValue()).doubleValue();
             if(checking.isSelected()){
+//            	System.out.println(money);
+            	cust.createCheckingOrSaving("Checking", money);
                 //if able to open(val){
                     //backend call to create account
                     //JOptionPane.showMessageDialog(this, "Successfully created account");
@@ -69,6 +72,7 @@ public class OpenAccountPage extends JFrame implements ActionListener{
                 //}
             }
             else if(savings.isSelected()){
+            	cust.createCheckingOrSaving("Saving", money);
                 /*
                 if able to open(val){
                     backendcall to create savings
@@ -90,7 +94,7 @@ public class OpenAccountPage extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-        new OpenAccountPage();
+//        new OpenAccountPage();
     }
     
 }

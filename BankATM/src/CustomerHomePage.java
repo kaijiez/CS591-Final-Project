@@ -54,7 +54,7 @@ public class CustomerHomePage extends JFrame implements ActionListener{
         Object source = e.getSource();
         if(source.equals(newAcc)){
             System.out.println("Open account button"); //tentatively done
-            //new OpenAccountPage(cust);
+            new OpenAccountPage(cust);
         }
         else if(source.equals(accounts)){
             System.out.println("Accounts button");
