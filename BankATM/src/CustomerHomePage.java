@@ -3,8 +3,12 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class CustomerHomePage extends JFrame implements ActionListener{
-    //Customer cust; 
-    protected JButton accounts, transactions, stockMarket, logout, newAcc, loanApp; 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5667596637661588200L;
+    // Customer cust;
+    protected JButton accounts, transactions, stockMarket, logout, newAcc, loanApp, currLoans; 
     public CustomerHomePage(String username){
         //cust = new Customer(username);
         JPanel panel = new JPanel();
@@ -21,6 +25,8 @@ public class CustomerHomePage extends JFrame implements ActionListener{
         addAButton(transactions, panel);
         loanApp = new JButton("Apply for a loan");
         addAButton(loanApp, panel);
+        currLoans = new JButton("View current Loans");
+        addAButton(currLoans, panel);
         stockMarket = new JButton("View the current Stock Market");
         addAButton(stockMarket, panel);
         logout = new JButton("Logout");
@@ -60,14 +66,18 @@ public class CustomerHomePage extends JFrame implements ActionListener{
         }
         else if(source.equals(stockMarket)){
             System.out.println("Stock market button");
-            //new StockMarketPage();
+            //new StockMarketPage(); //tentatively done
         }
         else if(source.equals(loanApp)){
             System.out.println("Loanapp button");
-            //new loanappPage(customer);
+            //new loanappPage(customer); //tentatively done
+        }
+        else if(source.equals(currLoans)){
+            System.out.println("current loans button");
+            //new CurrentLoansPage(Customer); //tentatively done
         }
         else if(source.equals(logout)){
-            System.out.println("Logout button");
+            System.out.println("Logout button"); //done
             setVisible(false);
             dispose();
         }
