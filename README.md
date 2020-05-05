@@ -31,6 +31,14 @@ Transaction: Interface that only checking and saving accounts use to implement w
 
 BankDriver: simply starting point that initializes a lot of pre-bank creation objects (e.g. bank manager, bank's stocks)
 
+Currency: represents physical currencies supported by the bank, abstract class with methods/attributes inherited by subclasses
+    -Euro
+    -Canadian Dollars
+    -Australian Dollars
+    -Pounds
+    -USD
+CurrencyConverter: class that converts any money to chosen currency
+
 Front-End pages:
 CreateAccountPage: where users will choose username/password for new account
 CustomerAccountsPage: overview of all customer accounts in the bank

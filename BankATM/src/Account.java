@@ -3,12 +3,12 @@ public abstract class Account {
     protected double current_amount;
     protected String account_id;
     protected String type = "Account";
-    protected String preferred_currency;
+    protected Currency preferred_currency;
 
     public Account(double starting_amount, String account_id){
         this.current_amount = starting_amount;
         this.account_id = account_id;
-        this.preferred_currency = "USD";
+        this.preferred_currency = new USD(this.current_amount);
     }
 
     public String getType() {
