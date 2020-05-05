@@ -33,11 +33,11 @@ public class StockMarket {
     	}
     }
     
-    public ArrayList<Stock> getStocks(){
+    public static ArrayList<Stock> getStocks(){
     	return allStocks;
     }
 
-    public ArrayList<Stock> get_open_positions(){
+    public static ArrayList<Stock> get_open_positions(){
         return open_positions;
     }
 
