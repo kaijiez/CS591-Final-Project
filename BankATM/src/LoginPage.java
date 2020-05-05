@@ -44,31 +44,51 @@ public class LoginPage extends JFrame implements ActionListener{
         //if(dbquery true){
             //loginpage(user)
         //}
-        if(user.equals("boop")){
-            if(passTry.equals("boop")){
-                System.out.println("Success! moving to main page");
-                new CustomerHomePage(user);
-                setVisible(false);
-                dispose();
-            }
-            else{
-                System.out.println("Login unsuccessful, invalid username or password");       
-            }
+        Customer customer = new Customer(user,passTry);
+        BankManager manager = new BankManager(user,passTry);
+        //check for customer login
+        if(customer.logIn()){
+        	System.out.println("Success! moving to main page");
+            new CustomerHomePage(customer);
+            setVisible(false);
+            dispose();
         }
-        else if(user.equals("admin")){//backend check if admin, if true, new admin page
-            if(passTry.equals("admin")){
-                System.out.println("Success! Moving to Manager home page");
-                new ManagerHomePage("admin");
-                setVisible(false);
-                dispose();
-            }
-            else{
-                System.out.println("Login unsuccessful, invalid username or password");
-            }
+        //check for bankmanager login
+        else if(manager.logIn()){
+        	System.out.println("Success! Moving to Manager home page");
+            new ManagerHomePage("admin");
+            setVisible(false);
+            dispose();
         }
         else{
-            System.out.println("Login unsuccessful, invalid username or password");       
+        	System.out.println("Login unsuccessful, invalid username or password");
         }
+        
+//        if(user.equals("boop")){
+//            if(passTry.equals("boop")){
+//                System.out.println("Success! moving to main page");
+//                new CustomerHomePage(user);
+//                setVisible(false);
+//                dispose();
+//            }
+//            else{
+//                System.out.println("Login unsuccessful, invalid username or password");       
+//            }
+//        }
+//        else if(user.equals("admin")){//backend check if admin, if true, new admin page
+//            if(passTry.equals("admin")){
+//                System.out.println("Success! Moving to Manager home page");
+//                new ManagerHomePage("admin");
+//                setVisible(false);
+//                dispose();
+//            }
+//            else{
+//                System.out.println("Login unsuccessful, invalid username or password");
+//            }
+//        }
+//        else{
+//            System.out.println("Login unsuccessful, invalid username or password");       
+//        }
 
     }
 

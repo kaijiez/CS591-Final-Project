@@ -1,4 +1,5 @@
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import database.SQLite;
 
@@ -22,9 +23,9 @@ public class BankDriver {
 //				  new String[]{"Saving",String.valueOf("100"),"1","05/04"},
 //				  new String[]{"text","real","integer","text"});
 		
-//		SQLite.insert("Loans", new String[]{"id","Amount","Customer_id","Collateral","Interest","ApplyDate","ApproveDate"},
-//				  new String[]{"1","3000","1","waterbottle","0.05","05/04","05/05"},
-//				  new String[]{"integer","real","integer","text","real","text","text"});
+//		SQLite.insert("Loans", new String[]{"id","Amount","Customer_id","Collateral","Interest","ApplyDate"},
+//				  new String[]{"2","2000","1","lotion","0.05","05/04"},
+//				  new String[]{"integer","real","integer","text","real","text"});
 //		
 //		String sql="SELECT t.Account_id, a.Type, t.Amount, t.Date FROM Transactions t INNER JOIN Accounts a on "
 //				+ "t.Customer_id = a.Customer_id AND t.Account_id = a.id "
@@ -44,13 +45,18 @@ public class BankDriver {
 //		SQLite.query(query, new String[]{"Username","Type","id","amount","Date"}, 
 //							new String[]{"text","text","integer","real","text"});
 		
-		
+		String query="SELECT Amount, Customer_id, Collateral, ApplyDate FROM Loans WHERE ApproveDate IS NULL";
+		ArrayList<ArrayList<String>> res;
+		res=SQLite.query(query, new String[]{"Amount","Customer_id","Collateral","ApplyDate"}, 
+							new String[]{"real","integer","text","text"});
 	}
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		dbTestCases();
+		
 		  
 	}
 

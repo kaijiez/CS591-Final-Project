@@ -9,7 +9,7 @@ public class CustomerAccountsPage extends JFrame implements ActionListener{
     JList accountList;
     JLabel details;
     JButton makeChange, back;
-    public CustomerAccountsPage(/*Customer cust*/){
+    public CustomerAccountsPage(Customer cust){
         //JPanel panel = new JPanel();
         details = new JLabel();
         details.setSize(500,100); 
@@ -21,12 +21,13 @@ public class CustomerAccountsPage extends JFrame implements ActionListener{
                 
             
         }*/
-        ArrayList<String> test = new ArrayList<String>();
-        test.add("1");
-        test.add("2");
-        test.add("3");
-        test.add("4");
-        test.add("5");
+//        ArrayList<String> test = new ArrayList<String>();
+//        test.add("1");
+//        test.add("2");
+//        test.add("3");
+//        test.add("4");
+//        test.add("5");
+        ArrayList<String> test = cust.getAccounts();
         
         Jtest = new JList(test.toArray());
         
@@ -83,6 +84,6 @@ public class CustomerAccountsPage extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-        new CustomerAccountsPage();
+//        new CustomerAccountsPage();
     }
 }

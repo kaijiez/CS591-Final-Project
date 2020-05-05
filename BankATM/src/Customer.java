@@ -45,7 +45,7 @@ public class Customer extends BankUser {
 		ArrayList<ArrayList<String>> res;
 		
 		//get id from db
-		query="SELECT id FROM Customers WHERE Username = "+Username+" AND "+"Password = "+Password;
+		query="SELECT id FROM Customers WHERE Username = '"+Username+"'"+" AND "+"Password = '"+Password+"'";
 		res=SQLite.query(query, new String[]{"id"}, new String[]{"integer"});
 		if(res!=null){
 			if(res.size()>0){
@@ -124,20 +124,22 @@ public class Customer extends BankUser {
 		//add new account to the owner's accounts
 		
 		if(type.toLowerCase().equals("checking")){
-			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
-					  new String[]{type,String.valueOf(amount),getId()},
-					  new String[]{"text","real","integer"});
-			this.accounts.add(new Checking(amount,Integer.toString(id),getCurrentDate()));
-			
+			int newid = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","DateCreated"},
+					  new String[]{type,String.valueOf(amount),getId(),getCurrentDate()},
+					  new String[]{"text","real","integer","text"});
+			Checking checking = new Checking(amount,Integer.toString(newid),getCurrentDate());
+			checking.setCustomerId(id);
+			this.accounts.add(checking);
 			return true;
 			
 		}
 		else if(type.toLowerCase().equals("saving")){
-			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
-					  new String[]{type,String.valueOf(amount),getId()},
-					  new String[]{"text","real","integer"});
-			Saving saving = new Saving(amount,Integer.toString(id),getCurrentDate());
+			int newid = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","DateCreated"},
+					  new String[]{type,String.valueOf(amount),getId(),getCurrentDate()},
+					  new String[]{"text","real","integer","text"});
+			Saving saving = new Saving(amount,Integer.toString(newid),getCurrentDate());
 			saving.setInterest();
+			saving.setCustomerId(id);
 			this.accounts.add(saving);
 			return true;
 			
@@ -176,12 +178,12 @@ public class Customer extends BankUser {
 															   new String[]{"real"});
 			
 			//create new securities account, and add to db
-			int newid = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","StartingAmount"},
-					  new String[]{"Securities",String.valueOf(amount),getId(),String.valueOf(amount)},
-					  new String[]{"text","real","integer","real"});
+			int newid = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","StartingAmount","DateCreated"},
+					  new String[]{"Securities",String.valueOf(amount),getId(),String.valueOf(amount),getCurrentDate()},
+					  new String[]{"text","real","integer","real","text"});
 			Securities securities = new Securities(amount,Integer.toString(newid),getCurrentDate());
 			securities.setCustomerId(id);
-			this.accounts.add(new Securities(amount,Integer.toString(newid),getCurrentDate()));
+			this.accounts.add(securities);
 			return true;
 		}
 		return false;
@@ -280,8 +282,13 @@ public class Customer extends BankUser {
 		return securities;
 	}
 	
-	public ArrayList<Account> getAccounts(){
-		return accounts;
+	public ArrayList<String> getAccounts(){
+		ArrayList<String> display= new ArrayList<String>();
+		for(Account a: accounts){
+			display.add(a.toString()+"\n");
+		}
+		System.out.println(display);
+		return display;
 	}
 	
 

@@ -7,10 +7,10 @@ public class CustomerHomePage extends JFrame implements ActionListener{
      *
      */
     private static final long serialVersionUID = 5667596637661588200L;
-    // Customer cust;
+     Customer cust;
     protected JButton accounts, transactions, stockMarket, logout, newAcc, loanApp, currLoans; 
-    public CustomerHomePage(String username){
-        //cust = new Customer(username);
+    public CustomerHomePage(Customer cust){
+        this.cust=cust;
         JPanel panel = new JPanel();
         setTitle("Home Page");
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -58,7 +58,7 @@ public class CustomerHomePage extends JFrame implements ActionListener{
         }
         else if(source.equals(accounts)){
             System.out.println("Accounts button");
-            new CustomerAccountsPage();//tentatively done
+            new CustomerAccountsPage(cust);//tentatively done
         }
         else if(source.equals(transactions)){
             System.out.println("transactions button");
@@ -94,7 +94,7 @@ public class CustomerHomePage extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-        new CustomerHomePage("Pat");
+//        new CustomerHomePage("Pat");
     }
 
     
