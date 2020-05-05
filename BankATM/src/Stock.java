@@ -8,26 +8,34 @@ public class Stock {
     protected String id;
     protected double price;
     protected String name;
-    protected double original_price;
+    protected double original_price;	//optional attribute
+    protected int amount;
 
-    public Stock(String id, String name,double starting_price){
+    public Stock(String id, String name,double starting_price,int amount){
         this.price = starting_price;
-        this.original_price = starting_price;
         this.name = name;
         this.id = id;
+        this.amount=amount;
+        this.original_price=0;
     }
     
-    
-    public void update(){
+    // price current price, consistent in both stockmarket and heldstocks
+    public void updatePrice(){
     	int changeRate = new Random().nextInt(10)-5;	//generate -5% to 5% fluctuation rate
     	price = price*(1+0.01*changeRate);
     	SQLite.update("StockMarket", "id = "+id, new String[]{"Price"}, 
     											 new String[]{Double.toString(price)}, 
     											 new String[]{"real"});
     }
+    
+    //update the stock amount 
+    public void updateAmount(int amount){	
+    	this.amount+=amount;
+    	
+    }
 
     public double get_unrealized_price(){
-        return this.original_price-this.price;
+        return this.price- this.original_price;
     }
     
     public double getPrice() {
@@ -38,6 +46,17 @@ public class Stock {
     }
     public String getId() {
         return id;
+    }
+    public int getAmount(){
+    	return amount;
+    }
+    
+    public double getOriginalPrice(){
+    	return original_price;
+    }
+    
+    public void setOriginPrice(double price){
+    	this.original_price =price;
     }
 
     public String toString(){

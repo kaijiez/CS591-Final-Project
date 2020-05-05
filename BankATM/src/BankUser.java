@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import database.SQLite;
@@ -18,6 +19,16 @@ public abstract class BankUser {
 	
 	protected String getId(){
 		return id;
+	}
+	
+	protected String getName(){
+		return Username;
+	}
+	
+	//format mm/dd
+	protected String getCurrentDate(){
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");
+		return dtf.format(java.time.LocalDate.now());
 	}
 	
 }

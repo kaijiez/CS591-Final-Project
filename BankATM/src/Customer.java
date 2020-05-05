@@ -5,26 +5,42 @@ import database.SQLite;
 public class Customer extends BankUser {
 //	private ArrayList<String> currencyTypes;
 	private ArrayList<Collateral> collaterals;
+	private ArrayList<Loan> loans;
+	final static double OpenOrCloseFee = 50;
+	final static double LoanInterest = 0.05;
 	
 	public Customer(String Username, String Password){
 		super(Username,Password);
 		collaterals = new ArrayList<Collateral>();
-		logIn();
 //		currencyTypes = new ArrayList<String>();
 	}
 	
 	//add customer to db when first sign up
-	public void signUp(){
-		int tempid=SQLite.insert("Customers", new String[]{"Username","Password"}, 
-				   new String[]{Username,Password}, 
-				   new String[]{"text","text"});
-		id = Integer.toString(tempid);
+	public boolean signUp(){
+		//check if username and password already exist
+		String query;
+		ArrayList<ArrayList<String>> res;
+		query="SELECT id FROM Customers WHERE Username = "+Username;
+		res=SQLite.query(query, new String[]{"id"}, new String[]{"integer"});
+		
+		if(res!=null){
+			if(res.size()==0){
+				int tempid=SQLite.insert("Customers", new String[]{"Username","Password"}, 
+						   new String[]{Username,Password}, 
+						   new String[]{"text","text"});
+				id = Integer.toString(tempid);
+				return true;
+			}
+			System.out.println("username and password already taken");
+		}
+		
+		return false;
 	}
 	
 	
 	
-	// read id, acconts from db if customer is in db
-	private void logIn(){
+	// read id, accounts from db if customer is in db
+	public boolean logIn(){
 		String query;
 		ArrayList<ArrayList<String>> res;
 		
@@ -32,52 +48,101 @@ public class Customer extends BankUser {
 		query="SELECT id FROM Customers WHERE Username = "+Username+" AND "+"Password = "+Password;
 		res=SQLite.query(query, new String[]{"id"}, new String[]{"integer"});
 		if(res!=null){
-			id=res.get(0).get(0);
+			if(res.size()>0){
+				id=res.get(0).get(0);
+			}
+			else{
+				System.out.println("no user id is found, the user has not signed up yet");
+				return false;
+			}
 		}
 		
 		//get all accounts from db
 		query="SELECT * FROM Accounts WHERE Customer_id = "+id;
-		res=SQLite.query(query, new String[]{"id","Type","Amount","Customer_id"}, 
-								new String[]{"integer","text","real","integer"});
+		res=SQLite.query(query, new String[]{"id","Type","Amount","Customer_id","DateCreated"}, 
+								new String[]{"integer","text","real","integer","text"});
 		if(res!=null){
 			for(int row=0;row<res.size();row++){
 				int id = Integer.parseInt(res.get(row).get(0));
 				String type=res.get(row).get(1);
 				double amount = Double.parseDouble(res.get(row).get(2));
+				String cid = res.get(row).get(3);
+				String date = res.get(row).get(4);
 				if(type.toLowerCase().equals("checking")){
-					accounts.add(new Checking(amount,Integer.toString(id)));
+					Checking checking = new Checking(amount,Integer.toString(id),date);
+					checking.setCustomerId(cid);
+					accounts.add(checking);
 					
 				}
 				else if(type.toLowerCase().equals("saving")){
-					accounts.add(new Saving(amount,Integer.toString(id)));
+					Saving saving = new Saving(amount,Integer.toString(id),date);
+					saving.setCustomerId(cid);
+					accounts.add(saving);
 					
 				}
 				else if(type.toLowerCase().equals("securities")){
-					accounts.add(new Securities(amount,Integer.toString(id)));
+					Securities securities = new Securities(amount,Integer.toString(id),date);
+					securities.setCustomerId(cid);
+					accounts.add(securities);
 					
 				}
 				
 			}
 		}
 		
+		// read all loans for the customer from db, and create collaterals from loans
+		query="SELECT * FROM Loans WHERE Customer_id = "+id;
+		res=SQLite.query(query, new String[]{"id","Amount","Collateral","Interest","ApplyDate","ApproveDate"}, 
+								new String[]{"integer","real","text","real","text","text"});
+		if(res!=null){
+			for(int row=0;row<res.size();row++){
+				String id = res.get(row).get(0);
+				double amount = Double.parseDouble(res.get(row).get(1));
+				
+				String collateral = res.get(row).get(2);
+				Collateral _collateral = new Collateral(collateral);
+				_collateral.setUsed(true);
+				collaterals.add(_collateral);
+				
+				double interest=Double.parseDouble(res.get(row).get(3));
+				String applyDate = res.get(row).get(4);
+				String approveDate = res.get(row).get(5);
+				Loan loan = new Loan(id, amount,_collateral,interest);
+				loan.setApplyDate(applyDate);
+				loan.setApproveDate(approveDate);
+				loans.add(loan);
+				
+				
+			}
+		}
+		return true;
+		
 	}
 	
-	public void createCheckingOrSaving(String type,double amount){
-		
+	public boolean createCheckingOrSaving(String type,double amount){
+		amount=(1-OpenOrCloseFee)*amount;
 		//add new account to the owner's accounts
-		int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
-				  new String[]{type,String.valueOf(amount),getId()},
-				  new String[]{"text","real","integer"});
 		
 		if(type.toLowerCase().equals("checking")){
-			this.accounts.add(new Checking(amount,Integer.toString(id)));
+			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
+					  new String[]{type,String.valueOf(amount),getId()},
+					  new String[]{"text","real","integer"});
+			this.accounts.add(new Checking(amount,Integer.toString(id),getCurrentDate()));
+			
+			return true;
 			
 		}
 		else if(type.toLowerCase().equals("saving")){
-			this.accounts.add(new Saving(amount,Integer.toString(id)));
+			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
+					  new String[]{type,String.valueOf(amount),getId()},
+					  new String[]{"text","real","integer"});
+			Saving saving = new Saving(amount,Integer.toString(id),getCurrentDate());
+			saving.setInterest();
+			this.accounts.add(saving);
+			return true;
 			
 		}
-
+		return false;
 
 	}
 	
@@ -95,14 +160,14 @@ public class Customer extends BankUser {
 	}
 	
 	// create securiteis account by transfer money from a saving account
-	public void createSecurities(double amount, String savingAccountId){
-		
+	public boolean createSecurities(double amount, String savingAccountId){
+		amount=(1-OpenOrCloseFee)*amount;
 		int updatedAmount=checkOpenSecurities(savingAccountId,amount);
 		if(updatedAmount!=-1){
 			//calculate the updated saving account balance
 			if(updatedAmount<=amount){
 				System.out.println("invalid amount to transfer from saving");
-				return;
+				return false;
 			}
 			updatedAmount-=amount;
 			//transfer the money from the saving account
@@ -111,43 +176,78 @@ public class Customer extends BankUser {
 															   new String[]{"real"});
 			
 			//create new securities account, and add to db
-			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
-					  new String[]{"Securities",String.valueOf(amount),getId()},
-					  new String[]{"text","real","integer"});
-			this.accounts.add(new Securities(amount,Integer.toString(id)));
+			int newid = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","StartingAmount"},
+					  new String[]{"Securities",String.valueOf(amount),getId(),String.valueOf(amount)},
+					  new String[]{"text","real","integer","real"});
+			Securities securities = new Securities(amount,Integer.toString(newid),getCurrentDate());
+			securities.setCustomerId(id);
+			this.accounts.add(new Securities(amount,Integer.toString(newid),getCurrentDate()));
+			return true;
 		}
-		
+		return false;
 	}
 	
+	//pull all transacitons for customer from newest to oldest, and return a string to display all transactions
 	public String viewTransactions(){
-		String transactions="";
+		String display="";
 		ArrayList<ArrayList<String>> res;
-		String sql="SELECT * FROM Transactions INNER JOIN Accounts on "
-				+ "Transactions.Customer_id = Accounts.Customer_id AND Transactions.Account_id = Accounts.id"
-				+ "WHERE Transactions.Customer_id = "+id;
+		String sql="SELECT t.Account_id, a.Type, t.Amount, t.Date FROM Transactions t INNER JOIN Accounts a on "
+				+ "t.Customer_id = a.Customer_id AND t.Account_id = a.id "
+				+ "WHERE t.Customer_id = 1 "
+				+ "ORDER BY Date DESC";
 		res=SQLite.query(sql, new String[]{"Account_id","Type","Amount","Date"}, 
 						  new String[]{"integer","text","integer","text"});
 		if(res!=null){
 			for(int row=0;row<res.size();row++){
-				transactions+=res.get(row).get(1)+"Account id "+res.get(row).get(0)+" made a transaction of "
-							+res.get(row).get(2)+" on "+res.get(row).get(3)+"\n";
+				Account acc=null;
+				for(Account a:accounts){
+					if(a.getId().equals(id)){
+						acc = a;
+					}
+				}
+				double displayAmount= CurrencyConverter.convert_currency(acc.getPreferredCurrency(),acc.getAmount());
+				display+=res.get(row).get(1)+"Account id "+res.get(row).get(0)+" made a transaction of "
+							+Double.toString(displayAmount)+" on "+res.get(row).get(3)+"\n";
 			}
 		}
-		return transactions;
+		return display;
+	}
+	
+	//return a string to display all loans
+	public String viewLoans(){
+		String display="";
+		for(Loan l: loans){
+			display+="loan id: "+l.getId()+" ,amount: "+l.getBorrowed_amount()+" ,collateral: "+l.getCollateral().getName()
+					+" ,interest: "+l.getInterest()+" ,applyDate: "+l.getApplyDate()+" ,approveDate: "+l.getApproveDate()+"\n";
+		}
+		
+		return display;
+	}
+	
+	//get all accounts the customer have
+	public String viewAllAccountsBalances(){
+		String display="";
+		for(Account a: accounts){
+			double displayAmount= CurrencyConverter.convert_currency(a.getPreferredCurrency(),a.getAmount());
+			display+=a.getType()+" account has "+Double.toString(displayAmount)+"\n";
+		}
+		return display;
 	}
 	
 	// request loads given amount and the specific collateral index
-	public void requestLoans(int amount , int collateralIndex ){
+	public boolean requestLoans(int amount , int collateralIndex , String collateral ){
 		if(collaterals.get(collateralIndex).isUsed()==false){
-			SQLite.insert("Loans", new String[]{"Amount","Customer_id","Collateral","Interest"},
-					   new String[]{Integer.toString(amount),id, collaterals.get(collateralIndex).getName(),"0.05"},
-					   new String[]{"real","integer","text","real"});
-			collaterals.get(collateralIndex).setUsed(true);
+			int newid=SQLite.insert("Loans", new String[]{"Amount","Customer_id","Collateral","Interest","ApplyDate"},
+					   new String[]{Integer.toString(amount),id, collateral,Double.toString(LoanInterest),getCurrentDate()},
+					   new String[]{"real","integer","text","real","text"});
+//			collaterals.get(collateralIndex).setUsed(true);
+			loans.add(new Loan(Integer.toString(newid), amount, new Collateral("collateral"),0.05));
+			return true;
 		}
 		else{
 			System.out.println("collateral is already being used");
 		}
-		
+		return false;
 	}
 	
 	public String displayCollaterals(){
@@ -164,6 +264,25 @@ public class Customer extends BankUser {
 		collaterals.add(c);
 	}
 	
+	public ArrayList<Loan> getLoans(){
+		return loans;
+	}
+	
+//	return arraylist of securities 
+	public ArrayList<Securities> retrieveSecurities(){
+		ArrayList<Securities> securities = new ArrayList<Securities>();
+		for (Account a: accounts){
+			Securities s = (Securities) (a);
+			if(a.getType().equals("Securities")){
+				securities.add(s);
+			}
+		}
+		return securities;
+	}
+	
+	public ArrayList<Account> getAccounts(){
+		return accounts;
+	}
 	
 
 }
