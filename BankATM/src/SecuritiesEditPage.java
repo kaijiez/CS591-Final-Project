@@ -38,7 +38,7 @@ public class SecuritiesEditPage extends JFrame implements ActionListener{
 
         ArrayList<String> availStockStrings = new ArrayList<String>();
         for (Stock stock : StockMarket.get_open_positions()) {
-            stockStrings.add(stock.toString());
+            availStockStrings.add(stock.toString());
         }
         availStocks = new JList<String>((String[]) availStockStrings.toArray());
         JScrollPane scrollPane2= new JScrollPane();

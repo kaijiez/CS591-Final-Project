@@ -10,15 +10,13 @@ public class ManagerHomePage extends JFrame implements ActionListener{
         JPanel panel = new JPanel();
         setTitle("Home Page");
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        JLabel welcome = new JLabel("Welcome"+""/*cust.name*/);
+        JLabel welcome = new JLabel("Welcome"+""/*man.name*/);
         welcome.setAlignmentX(CENTER_ALIGNMENT);
         panel.add(welcome);
         accounts = new JButton("View all customer accounts");
         addAButton(accounts, panel);
         transactions = new JButton("View recent Transactions");
         addAButton(transactions, panel);
-        viewStockMarket = new JButton("View the current Stock Market");
-        addAButton(viewStockMarket, panel);
         editStockMarket = new JButton("Edit the current Stock Market");
         addAButton(editStockMarket, panel);
         loans = new JButton("view all Customer Loans");
@@ -49,15 +47,16 @@ public class ManagerHomePage extends JFrame implements ActionListener{
         Object source = e.getSource();
         if(source.equals(accounts)){
             System.out.println("Accounts button");
+            //new ManagerAccountsViewPage(); //tentatively done
+            
         }
         else if(source.equals(transactions)){
             System.out.println("transactions button");
-        }
-        else if(source.equals(viewStockMarket)){
-            System.out.println("View Stock market button");
+            //new ManagerTransactionsPage(); //tentatively done
         }
         else if(source.equals(editStockMarket)){
             System.out.println("Edit Stock Market Button");
+            //new EditStockMarketPage();
         }
         else if(source.equals(loans)){
             System.out.println("Loans button");
