@@ -9,13 +9,13 @@ public class Stock {
     protected double price;
     protected String name;
     protected double original_price;	//optional attribute
-    protected int amount;
+    protected int shares;	// number of shares
 
     public Stock(String id, String name,double starting_price,int amount){
         this.price = starting_price;
         this.name = name;
         this.id = id;
-        this.amount=amount;
+        this.shares=amount;
         this.original_price=0;
     }
     
@@ -30,7 +30,7 @@ public class Stock {
     
     //update the stock amount 
     public void updateAmount(int amount){	
-    	this.amount+=amount;
+    	this.shares+=amount;
     	
     }
 
@@ -48,7 +48,7 @@ public class Stock {
         return id;
     }
     public int getAmount(){
-    	return amount;
+    	return shares;
     }
     
     public double getOriginalPrice(){

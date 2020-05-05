@@ -120,10 +120,11 @@ public class Customer extends BankUser {
 	}
 	
 	public boolean createCheckingOrSaving(String type,double amount){
-		amount=(1-OpenOrCloseFee)*amount;
+		amount-=OpenOrCloseFee;
 		//add new account to the owner's accounts
 		
 		if(type.toLowerCase().equals("checking")){
+			System.out.println("here");
 			int newid = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","DateCreated"},
 					  new String[]{type,String.valueOf(amount),getId(),getCurrentDate()},
 					  new String[]{"text","real","integer","text"});
