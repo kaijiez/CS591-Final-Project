@@ -59,8 +59,10 @@ public class StockMarket {
     			open_positions.add(s);
     		}
     	}
-        return open_positions;
+    	return open_positions;
     }
+
+
     
 
     public void createStock(String name, double price, int amount){
