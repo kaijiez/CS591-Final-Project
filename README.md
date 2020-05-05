@@ -43,6 +43,9 @@ Front-End pages:
 CreateAccountPage: where users will choose username/password for new account
 CustomerAccountsPage: overview of all customer accounts in the bank
 CustomerHomePage: user's main page of all accounts info and possible actions to take on accounts
+EditStockMarketPage: admin can change stock values
 LoginPage: where user will input username/password to get to home page
 ManagerHomePage: admin's main page which offers options like customer overview /changing stock prices
 StartUpPage: Page where users can choose to either login or create a new account
+StockMarketPage: page where users can see open positions in stock market
+SecuritiesEditPage: page where customers can buy/sell their stock
