@@ -8,7 +8,7 @@ public class CustomerAccountChangePage extends JFrame implements ActionListener{
     Account acc;
     JRadioButton deposit, withdraw;
     JFormattedTextField amount;
-    JButton confirm, back;
+    JButton confirm, back, makeSec;
     public CustomerAccountChangePage(Account account){
         this.acc = account;
         if(acc.getType().equals("Securities")){
@@ -22,6 +22,15 @@ public class CustomerAccountChangePage extends JFrame implements ActionListener{
             back.addActionListener(this);
             back.setBounds(400, 800, 300, 100);
             add(back);
+        }
+        else if(acc.getType().equals("Savings")){
+            if(acc.checkSecurities()){
+                makeSec = new JButton("Create a securities account!");
+                makeSec.setBounds(600, 600, 350, 200);
+                makeSec.addActionListener(this);
+                add(makeSec);
+            }
+            
         }
         else{
             JLabel accLabel = new JLabel("Change to Account: "+acc.account_id);
@@ -78,6 +87,7 @@ public class CustomerAccountChangePage extends JFrame implements ActionListener{
         }
         else if(e.getSource().equals(confirm)){
             if(deposit.isSelected()){
+                
                 //backend call to change the account details
                 setVisible(false);
                 dispose();
@@ -93,6 +103,12 @@ public class CustomerAccountChangePage extends JFrame implements ActionListener{
             else{
                 JOptionPane.showMessageDialog(this, "Please select an action");
             }
+            
+        }
+        else if(e.getSource().equals(makeSec)){
+            //logic to make securities account
+            JOptionPane.showMessageDialog(this, "Securities account created!");
+            dispose();
         }
 
 

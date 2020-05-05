@@ -46,7 +46,13 @@ public class EditStockMarketPage extends JFrame implements ActionListener{
             dispose();
         }
         else if(source.equals(delete)){
-            int selected 
+            int selected = availStocks.getSelectedIndex();
+            StockMarket.removeStock(StockMarket.get_open_positions().get(selected).getid());
+            JOptionPane.showMessageDialog(this, "Successfully removed stock");
+            dispose();
+        }
+        else if(source.equals(addNew)){
+            //new addStockPage();
         }
 
     }

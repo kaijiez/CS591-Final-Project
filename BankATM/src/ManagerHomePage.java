@@ -56,13 +56,15 @@ public class ManagerHomePage extends JFrame implements ActionListener{
         }
         else if(source.equals(editStockMarket)){
             System.out.println("Edit Stock Market Button");
-            //new EditStockMarketPage();
+            //new EditStockMarketPage(); //tentatively done
         }
         else if(source.equals(loans)){
             System.out.println("Loans button");
+            //new loanApprovalPage();
         }
         else if(source.equals(todayTransactions)){
             System.out.println("Today's Transactions");
+            //new ManTransactionsPage(); //tentatively implemented
         }
         else if(source.equals(logout)){
             System.out.println("Logout button");
