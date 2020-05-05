@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class CustomerHomePage extends JFrame implements ActionListener{
     //Customer cust; 
-    protected JButton accounts, transactions, stockMarket, logout; 
+    protected JButton accounts, transactions, stockMarket, logout, newAcc, loanApp; 
     public CustomerHomePage(String username){
         //cust = new Customer(username);
         JPanel panel = new JPanel();
@@ -13,10 +13,14 @@ public class CustomerHomePage extends JFrame implements ActionListener{
         JLabel welcome = new JLabel("Welcome"+""/*cust.name*/);
         welcome.setAlignmentX(CENTER_ALIGNMENT);
         panel.add(welcome);
+        newAcc = new JButton("Open a new account");
+        addAButton(newAcc, panel);
         accounts = new JButton("View accounts");
         addAButton(accounts, panel);
         transactions = new JButton("View recent Transactions");
         addAButton(transactions, panel);
+        loanApp = new JButton("Apply for a loan");
+        addAButton(loanApp, panel);
         stockMarket = new JButton("View the current Stock Market");
         addAButton(stockMarket, panel);
         logout = new JButton("Logout");
@@ -33,7 +37,7 @@ public class CustomerHomePage extends JFrame implements ActionListener{
 
         panel.setMinimumSize(new Dimension(500,500));
         add(panel);
-        setMinimumSize(new Dimension(500,500));
+        setMinimumSize(new Dimension(1000,1000));
         setLocation(500, 500);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -42,15 +46,25 @@ public class CustomerHomePage extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if(source.equals(accounts)){
+        if(source.equals(newAcc)){
+            System.out.println("Open account button"); //tentatively done
+            //new OpenAccountPage(cust);
+        }
+        else if(source.equals(accounts)){
             System.out.println("Accounts button");
-            new CustomerAccountsPage();
+            new CustomerAccountsPage();//tentatively done
         }
         else if(source.equals(transactions)){
             System.out.println("transactions button");
+            new CustomerTransactionsPage(); //tentatively done
         }
         else if(source.equals(stockMarket)){
             System.out.println("Stock market button");
+            //new StockMarketPage();
+        }
+        else if(source.equals(loanApp)){
+            System.out.println("Loanapp button");
+            //new loanappPage(customer);
         }
         else if(source.equals(logout)){
             System.out.println("Logout button");

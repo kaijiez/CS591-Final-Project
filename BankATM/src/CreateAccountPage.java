@@ -36,19 +36,12 @@ public class CreateAccountPage extends JFrame implements ActionListener{
         String user = usernameField.getText();
         String passTry = passwordField.getText();//deprecated but it doesn't matter
         System.out.println(user+passTry);
-        /* logic to check if there's a user in the db already with that username, if not, then create a user with that password
-        if(db.query(SELECT username FROM customers WHERE username = user) !=null/.exists){
-            sysout("Username already in use, please enter a new username")
-        }
-        else{
-            db.query(Insert new username, password) //idk syntax for creating a new entry
-            //but basically this will add a new row with a new user
-            setVisible(false);
-            dispose();
-        }
+        //Code here on backend to create new customer
+        //if(true){created user}
+        //else{input new username}
 
 
-        */
+        
         setVisible(false);
         dispose();
 

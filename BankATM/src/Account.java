@@ -12,6 +12,7 @@ public abstract class Account{
     public String getType() {
         return this.type;
     }
+    
 
     public String toString(){
         String ret = "";
