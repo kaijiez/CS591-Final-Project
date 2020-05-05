@@ -1,8 +1,8 @@
 # CS591-Final-Project
 Group #3
 
-Pat Duffil - U
-Kaijie Zhou - U
+Pat Duffil - U84513865
+Kaijie Zhou - U54295267
 Cathy Kim - U51788489
 
 Compilation Instructions:
