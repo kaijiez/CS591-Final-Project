@@ -21,6 +21,10 @@ public abstract class BankUser {
 		return id;
 	}
 	
+	protected String getName(){
+		return Username;
+	}
+	
 	//format mm/dd
 	protected String getCurrentDate(){
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");

@@ -35,13 +35,12 @@ public class BankDriver {
 //		SQLite.query(query, new String[]{"id","Amount","Collateral","Interest","ApplyDate","ApproveDate"}, 
 //								new String[]{"integer","real","text","real","text","text"});
 		
-//		Username, Type, a.id, t.amount, Date
-		String query="SELECT Username, Type, a.id, t.amount, Date FROM Transactions t "
-				+ "INNER JOIN Customers c ON t.Customer_id = c.id "
-				+ "INNER JOIN Accounts a ON t.Account_id = a.id "
-				+ "WHERE Date = '05/04' ";
-		SQLite.query(query, new String[]{"Username","Type","id","amount","Date"}, 
-							new String[]{"text","text","integer","real","text"});
+//		String query="SELECT Username, Type, a.id, t.amount, Date FROM Transactions t "
+//				+ "INNER JOIN Customers c ON t.Customer_id = c.id "
+//				+ "INNER JOIN Accounts a ON t.Account_id = a.id "
+//				+ "WHERE Date = '05/04' ";
+//		SQLite.query(query, new String[]{"Username","Type","id","amount","Date"}, 
+//							new String[]{"text","text","integer","real","text"});
 		
 		
 	}

@@ -13,6 +13,7 @@ public class BankManager extends BankUser {
 		
 	}
 	
+	// verify if this person is bank manager
 	public boolean logIn(String username, String password){
 		if(Username==username && Password==password){
 			return true;
@@ -117,8 +118,8 @@ public class BankManager extends BankUser {
 		
 	}
 	
-	public void addStock(String name, double price){
-		stockMarket.createStock(name, price);
+	public void addStock(String name, double price, int amount){
+		stockMarket.createStock(name, price,amount);
 	}
 	
 	// delete stock from stockmarket based on id

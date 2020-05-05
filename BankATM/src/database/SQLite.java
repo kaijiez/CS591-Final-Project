@@ -14,16 +14,17 @@ public class SQLite {
 	
 	private static Connection conn = null;
 	
+	//create db and initiazlie table schemas
 	public static void init(){
-		SQLite.createNewDatabase("Bank.db");
+//		SQLite.createNewDatabase("Bank.db");
 		
 		SQLite.createNewTable("Customers", new String[]{"id","Name","Username","Password"}, 
 										   new String[]{"INTEGER","TEXT","TEXT","TEXT"}, 
 										   new String[]{"PRIMARY KEY","none","NOT NULL","NOT NULL"},
 										   new String[]{});
-		SQLite.createNewTable("Accounts", new String[]{"id", "Type","Amount","Customer_id"}, 
-										  new String[]{"integer","text","real","integer"}, 
-										  new String[]{"primary key","not null","none","not null"},
+		SQLite.createNewTable("Accounts", new String[]{"id", "Type","Amount","Customer_id","StartingAmount"}, 
+										  new String[]{"integer","text","real","integer","real"}, 
+										  new String[]{"primary key","not null","none","not null","none"},
 										  new String[]{"FOREIGN KEY (Customer_id) REFERENCES Customers(id)"});
 		SQLite.createNewTable("Loans", new String[]{"id","Amount","Customer_id","Collateral","Interest","ApplyDate","ApproveDate"}, 
 									   new String[]{"integer","real","integer","text","real","text","text"},
@@ -34,14 +35,14 @@ public class SQLite {
 											  new String[]{"primary key","not null","not null","not null","none"},
 											  new String[]{"FOREIGN KEY (Customer_id) REFERENCES Customers(id),\n"+
 											  			   "FOREIGN KEY (Account_id) REFERENCES Accounts(id)"});
-		SQLite.createNewTable("HeldStocks", new String[]{"id","PriceBoughtAt","StockMarket_id","Customer_id","DateBought","Amount"}, 
+		SQLite.createNewTable("HeldStocks", new String[]{"id","PriceBoughtAt","StockMarket_id","Account_id","DateBought","Amount"}, 
 										    new String[]{"integer","real","integer","integer","text","integer"},
 										    new String[]{"primary key","not null","not null","not null","none","not null"},
 										    new String[]{"FOREIGN KEY (StockMarket_id) REFERENCES StockMarket(id),\n"+
-										    			 "FOREIGN KEY (Customer_id) REFERENCES Customers(id)"});
-		SQLite.createNewTable("StockMarket", new String[]{"id","Name","Price"}, 
-											 new String[]{"integer","text","real"},
-											 new String[]{"primary key","not null","not null"},
+										    			 "FOREIGN KEY (Account_id) REFERENCES Accounts(id)"});
+		SQLite.createNewTable("StockMarket", new String[]{"id","Name","Price","Amount"}, 
+											 new String[]{"integer","text","real","integer"},
+											 new String[]{"primary key","not null","not null","not null"},
 											 new String[]{});
 	}
 	

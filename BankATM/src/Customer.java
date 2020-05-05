@@ -6,6 +6,8 @@ public class Customer extends BankUser {
 //	private ArrayList<String> currencyTypes;
 	private ArrayList<Collateral> collaterals;
 	private ArrayList<Loan> loans;
+	final static double OpenOrCloseFee = 50;
+	final static double LoanInterest = 0.05;
 	
 	public Customer(String Username, String Password){
 		super(Username,Password);
@@ -110,19 +112,25 @@ public class Customer extends BankUser {
 	}
 	
 	public boolean createCheckingOrSaving(String type,double amount){
-		
+		amount=(1-OpenOrCloseFee)*amount;
 		//add new account to the owner's accounts
-		int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
-				  new String[]{type,String.valueOf(amount),getId()},
-				  new String[]{"text","real","integer"});
 		
 		if(type.toLowerCase().equals("checking")){
+			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
+					  new String[]{type,String.valueOf(amount),getId()},
+					  new String[]{"text","real","integer"});
 			this.accounts.add(new Checking(amount,Integer.toString(id)));
+			
 			return true;
 			
 		}
 		else if(type.toLowerCase().equals("saving")){
-			this.accounts.add(new Saving(amount,Integer.toString(id)));
+			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
+					  new String[]{type,String.valueOf(amount),getId()},
+					  new String[]{"text","real","integer"});
+			Saving saving = new Saving(amount,Integer.toString(id));
+			saving.setInterest();
+			this.accounts.add(saving);
 			return true;
 			
 		}
@@ -145,7 +153,7 @@ public class Customer extends BankUser {
 	
 	// create securiteis account by transfer money from a saving account
 	public boolean createSecurities(double amount, String savingAccountId){
-		
+		amount=(1-OpenOrCloseFee)*amount;
 		int updatedAmount=checkOpenSecurities(savingAccountId,amount);
 		if(updatedAmount!=-1){
 			//calculate the updated saving account balance
@@ -160,9 +168,9 @@ public class Customer extends BankUser {
 															   new String[]{"real"});
 			
 			//create new securities account, and add to db
-			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
-					  new String[]{"Securities",String.valueOf(amount),getId()},
-					  new String[]{"text","real","integer"});
+			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","StartingAmount"},
+					  new String[]{"Securities",String.valueOf(amount),getId(),String.valueOf(amount)},
+					  new String[]{"text","real","integer","real"});
 			this.accounts.add(new Securities(amount,Integer.toString(id)));
 			return true;
 		}
@@ -212,7 +220,7 @@ public class Customer extends BankUser {
 	public boolean requestLoans(int amount , int collateralIndex , String collateral ){
 		if(collaterals.get(collateralIndex).isUsed()==false){
 			int newid=SQLite.insert("Loans", new String[]{"Amount","Customer_id","Collateral","Interest","ApplyDate"},
-					   new String[]{Integer.toString(amount),id, collateral,"0.05",getCurrentDate()},
+					   new String[]{Integer.toString(amount),id, collateral,Double.toString(LoanInterest),getCurrentDate()},
 					   new String[]{"real","integer","text","real","text"});
 //			collaterals.get(collateralIndex).setUsed(true);
 			loans.add(new Loan(Integer.toString(newid), amount, new Collateral("collateral"),0.05));
@@ -240,6 +248,21 @@ public class Customer extends BankUser {
 	
 	public ArrayList<Loan> getLoans(){
 		return loans;
+	}
+	
+	public ArrayList<Securities> retrieveSecurities(){
+		ArrayList<Securities> securities = new ArrayList<Securities>();
+		for (Account a: accounts){
+			Securities s = (Securities) (a);
+			if(a.getType().equals("Securities")){
+				securities.add(s);
+			}
+		}
+		return securities;
+	}
+	
+	public ArrayList<Account> getAccounts(){
+		return accounts;
 	}
 	
 
