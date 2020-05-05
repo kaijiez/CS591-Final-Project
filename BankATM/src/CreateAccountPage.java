@@ -39,8 +39,14 @@ public class CreateAccountPage extends JFrame implements ActionListener{
         //Code here on backend to create new customer
         //if(true){created user}
         //else{input new username}
-
-
+        Customer customer = new Customer(user,passTry);
+        Boolean success=customer.signUp();
+        if(!success){
+        	System.out.println("try again, either username or password is taken");
+        }
+        else{
+        	System.out.println("")
+        }
         
         setVisible(false);
         dispose();

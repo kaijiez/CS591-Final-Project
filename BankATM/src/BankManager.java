@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import database.SQLite;
 
 public class BankManager extends BankUser {
-	final static String Username = "admin";
-	final static String Password = "admin";
+	final static String _Username = "admin";
+	final static String _Password = "admin";
 	private StockMarket stockMarket;
 	
 	public BankManager(String Username, String Password){
@@ -14,8 +14,8 @@ public class BankManager extends BankUser {
 	}
 	
 	// verify if this person is bank manager
-	public boolean logIn(String username, String password){
-		if(Username==username && Password==password){
+	public boolean logIn(){
+		if(Username==_Username && Password==_Password){
 			return true;
 		}
 		return false;
@@ -45,6 +45,7 @@ public class BankManager extends BankUser {
 		return display;
 	}
 	
+	// return all accounts to the frontend
 	public ArrayList<Account> lookUpAllAccounts(){
 		//get all accounts from db
 		ArrayList<Account> acc= new ArrayList<Account>();
@@ -136,13 +137,14 @@ public class BankManager extends BankUser {
 		
 	}
 	
+	// get daily transaction by date from the database
 	public String viewDailyTransactions(String date){
 		String display="";
 		ArrayList<ArrayList<String>> res;
 		String query="SELECT Username, Type, a.id, t.amount, Date FROM Transactions t "
 				+ "INNER JOIN Customers c ON t.Customer_id = c.id "
 				+ "INNER JOIN Accounts a ON t.Account_id = a.id "
-				+ "WHERE Date = '05/04' ";
+				+ "WHERE Date = "+date;
 		res=SQLite.query(query, new String[]{"Username","Type","id","amount","Date"}, 
 							new String[]{"text","text","integer","real","text"});
 		if(res!=null){
@@ -155,6 +157,7 @@ public class BankManager extends BankUser {
 		
 	}
 	
+	// add stock to stockmarket
 	public void addStock(String name, double price, int amount){
 		stockMarket.createStock(name, price,amount);
 	}
@@ -162,6 +165,23 @@ public class BankManager extends BankUser {
 	// delete stock from stockmarket based on id
 	public void removeStock(String id){
 		stockMarket.removeStock(id);
+	}
+	
+	// get loans in Amount, Customer_id, Collateral, ApplyDate
+	public ArrayList<String> getAppendingLoans(){
+		String query="SELECT Amount, Customer_id, Collateral, ApplyDate FROM Loans WHERE ApproveDate IS NULL";
+		ArrayList<ArrayList<String>> res;
+		res=SQLite.query(query, new String[]{"Amount","Customer_id","Collateral","ApplyDate"}, 
+							new String[]{"real","integer","text","text"});
+		ArrayList<String> display=new ArrayList<String>();
+		if(res!=null){
+			for(int row = 0;row<res.size();row++){
+				String r="Customer id: "+res.get(row).get(1)+" apply a loan of "+res.get(row).get(0)+" with Collateral ("+
+						res.get(row).get(2)+") on "+res.get(row).get(3)+"\n";
+				display.add(r);
+			}
+		}
+		return display;
 	}
 	
 }
