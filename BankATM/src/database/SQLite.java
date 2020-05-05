@@ -22,9 +22,9 @@ public class SQLite {
 										   new String[]{"INTEGER","TEXT","TEXT","TEXT"}, 
 										   new String[]{"PRIMARY KEY","none","NOT NULL","NOT NULL"},
 										   new String[]{});
-		SQLite.createNewTable("Accounts", new String[]{"id", "Type","Amount","Customer_id","StartingAmount"}, 
-										  new String[]{"integer","text","real","integer","real"}, 
-										  new String[]{"primary key","not null","none","not null","none"},
+		SQLite.createNewTable("Accounts", new String[]{"id", "Type","Amount","Customer_id","StartingAmount","DateCreated"}, 
+										  new String[]{"integer","text","real","integer","real","text"}, 
+										  new String[]{"primary key","not null","none","not null","none","not null"},
 										  new String[]{"FOREIGN KEY (Customer_id) REFERENCES Customers(id)"});
 		SQLite.createNewTable("Loans", new String[]{"id","Amount","Customer_id","Collateral","Interest","ApplyDate","ApproveDate"}, 
 									   new String[]{"integer","real","integer","text","real","text","text"},

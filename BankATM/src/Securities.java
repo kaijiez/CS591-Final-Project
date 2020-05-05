@@ -7,8 +7,8 @@ public class Securities extends Account{
     protected ArrayList<Stock> stocks;
     protected double total_realized_profit;
 
-    public Securities(double starting_amount, String account_id){
-        super(starting_amount, account_id);
+    public Securities(double starting_amount, String account_id, String dateCreated){
+        super(starting_amount, account_id, dateCreated);
         this.type = "Securities";
         this.stocks = new ArrayList<>();
         this.total_realized_profit = 0;

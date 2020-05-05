@@ -8,7 +8,9 @@ public class BankDriver {
 //		SQLite.init();
 		
 //		SQLite.insert("Customers", new String[]{"Username","Password"}, new String[]{"Bob","BobPassword"}, new String[]{"TEXT","TEXT"});
-//		SQLite.insert("Accounts", new String[]{"Type","Amount","Customer_id"}, new String[]{"Checking","12","1"}, new String[]{"text","real","integer"});
+//		SQLite.insert("Accounts", new String[]{"Type","Amount","Customer_id","DateCreated"}, 
+//								  new String[]{"Checking","12","1","05/05"}, 
+//								  new String[]{"text","real","integer","text"});
 //
 //		SQLite.update("Customers", "Name = 'Bob'", new String[]{"Name"}, new String[]{"Bobby"}, new String[]{"Text"});
 		
@@ -16,9 +18,9 @@ public class BankDriver {
 //		String res=SQLite.query(testQuery, new String[]{"id","Name"}, new String[]{"Integer","Text"});
 //		System.out.println(res.split("\t")[0]);
 		
-//		SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
-//				  new String[]{"Saving",String.valueOf("100"),"1"},
-//				  new String[]{"text","real","integer"});
+//		SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","DateCreated"},
+//				  new String[]{"Saving",String.valueOf("100"),"1","05/04"},
+//				  new String[]{"text","real","integer","text"});
 		
 //		SQLite.insert("Loans", new String[]{"id","Amount","Customer_id","Collateral","Interest","ApplyDate","ApproveDate"},
 //				  new String[]{"1","3000","1","waterbottle","0.05","05/04","05/05"},

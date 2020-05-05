@@ -39,7 +39,7 @@ public class Customer extends BankUser {
 	
 	
 	
-	// read id, acconts from db if customer is in db
+	// read id, accounts from db if customer is in db
 	public boolean logIn(){
 		String query;
 		ArrayList<ArrayList<String>> res;
@@ -59,23 +59,31 @@ public class Customer extends BankUser {
 		
 		//get all accounts from db
 		query="SELECT * FROM Accounts WHERE Customer_id = "+id;
-		res=SQLite.query(query, new String[]{"id","Type","Amount","Customer_id"}, 
-								new String[]{"integer","text","real","integer"});
+		res=SQLite.query(query, new String[]{"id","Type","Amount","Customer_id","DateCreated"}, 
+								new String[]{"integer","text","real","integer","text"});
 		if(res!=null){
 			for(int row=0;row<res.size();row++){
 				int id = Integer.parseInt(res.get(row).get(0));
 				String type=res.get(row).get(1);
 				double amount = Double.parseDouble(res.get(row).get(2));
+				String cid = res.get(row).get(3);
+				String date = res.get(row).get(4);
 				if(type.toLowerCase().equals("checking")){
-					accounts.add(new Checking(amount,Integer.toString(id)));
+					Checking checking = new Checking(amount,Integer.toString(id),date);
+					checking.setCustomerId(cid);
+					accounts.add(checking);
 					
 				}
 				else if(type.toLowerCase().equals("saving")){
-					accounts.add(new Saving(amount,Integer.toString(id)));
+					Saving saving = new Saving(amount,Integer.toString(id),date);
+					saving.setCustomerId(cid);
+					accounts.add(saving);
 					
 				}
 				else if(type.toLowerCase().equals("securities")){
-					accounts.add(new Securities(amount,Integer.toString(id)));
+					Securities securities = new Securities(amount,Integer.toString(id),date);
+					securities.setCustomerId(cid);
+					accounts.add(securities);
 					
 				}
 				
@@ -119,7 +127,7 @@ public class Customer extends BankUser {
 			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
 					  new String[]{type,String.valueOf(amount),getId()},
 					  new String[]{"text","real","integer"});
-			this.accounts.add(new Checking(amount,Integer.toString(id)));
+			this.accounts.add(new Checking(amount,Integer.toString(id),getCurrentDate()));
 			
 			return true;
 			
@@ -128,7 +136,7 @@ public class Customer extends BankUser {
 			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id"},
 					  new String[]{type,String.valueOf(amount),getId()},
 					  new String[]{"text","real","integer"});
-			Saving saving = new Saving(amount,Integer.toString(id));
+			Saving saving = new Saving(amount,Integer.toString(id),getCurrentDate());
 			saving.setInterest();
 			this.accounts.add(saving);
 			return true;
@@ -168,10 +176,12 @@ public class Customer extends BankUser {
 															   new String[]{"real"});
 			
 			//create new securities account, and add to db
-			int id = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","StartingAmount"},
+			int newid = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","StartingAmount"},
 					  new String[]{"Securities",String.valueOf(amount),getId(),String.valueOf(amount)},
 					  new String[]{"text","real","integer","real"});
-			this.accounts.add(new Securities(amount,Integer.toString(id)));
+			Securities securities = new Securities(amount,Integer.toString(newid),getCurrentDate());
+			securities.setCustomerId(id);
+			this.accounts.add(new Securities(amount,Integer.toString(newid),getCurrentDate()));
 			return true;
 		}
 		return false;

@@ -4,8 +4,8 @@ import database.SQLite;
 public class Checking extends Account implements Transaction{
 	final static double TransactionFee = 50;
 	
-    public Checking(double starting_amount, String account_id){
-        super(starting_amount, account_id);
+    public Checking(double starting_amount, String account_id , String dateCreated){
+        super(starting_amount, account_id, dateCreated);
         this.type = "Checking";
     }
 

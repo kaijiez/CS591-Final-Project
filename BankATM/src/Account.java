@@ -8,11 +8,14 @@ public abstract class Account {
     protected double current_amount;
     protected String account_id;
     protected String type = "Account";
+    protected String dateCreated;
+    protected String customer_id;
 
 
-    public Account(double starting_amount, String account_id){
+    public Account(double starting_amount, String account_id, String dateCreated){
         this.current_amount = starting_amount;
         this.account_id = account_id;
+        this.dateCreated = dateCreated;
         init();
     }
     
@@ -34,6 +37,14 @@ public abstract class Account {
     
     public String getId(){
     	return account_id;
+    }
+    
+    public void setCustomerId(String id){
+    	customer_id=id;
+    }
+    
+    public String getCustomerId(){
+    	return customer_id;
     }
     
     public double getAmount(){

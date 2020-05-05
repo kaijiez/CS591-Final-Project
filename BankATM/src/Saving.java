@@ -9,8 +9,8 @@ public class Saving extends Account implements Transaction{
     protected double interest;
     final static double Interest=0.05;
 
-    public Saving(double starting_amount, String account_id){
-        super(starting_amount, account_id);
+    public Saving(double starting_amount, String account_id, String dateCreated){
+        super(starting_amount, account_id, dateCreated);
         this.type = "Saving";
         this.securities_exist = false;
         interest=0;

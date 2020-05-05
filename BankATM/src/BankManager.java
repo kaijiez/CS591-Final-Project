@@ -45,6 +45,43 @@ public class BankManager extends BankUser {
 		return display;
 	}
 	
+	public ArrayList<Account> lookUpAllAccounts(){
+		//get all accounts from db
+		ArrayList<Account> acc= new ArrayList<Account>();
+		String query="SELECT * FROM Accounts WHERE Customer_id = "+id;
+		ArrayList<ArrayList<String>> res=SQLite.query(query, new String[]{"id","Type","Amount","Customer_id","DateCreated"}, 
+															 new String[]{"integer","text","real","integer","text"});
+		if(res!=null){
+			for(int row=0;row<res.size();row++){
+				int id = Integer.parseInt(res.get(row).get(0));
+				String type=res.get(row).get(1);
+				double amount = Double.parseDouble(res.get(row).get(2));
+				String cid = res.get(row).get(3);
+				String date = res.get(row).get(4);
+				if(type.toLowerCase().equals("checking")){
+					Checking checking = new Checking(amount,Integer.toString(id),date);
+					checking.setCustomerId(cid);
+					acc.add(checking);
+					
+				}
+				else if(type.toLowerCase().equals("saving")){
+					Saving saving = new Saving(amount,Integer.toString(id),date);
+					saving.setCustomerId(cid);
+					acc.add(saving);
+					
+				}
+				else if(type.toLowerCase().equals("securities")){
+					Securities securities = new Securities(amount,Integer.toString(id),date);
+					securities.setCustomerId(cid);
+					acc.add(securities);
+					
+				}
+				
+			}
+		}
+		return acc;
+	}
+	
 	
 	//display all customers
 	public String lookUpAllCustomers(){
