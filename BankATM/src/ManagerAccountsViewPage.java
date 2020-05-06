@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class ManagerAccountsViewPage extends JFrame implements ActionListener{
     JButton back;
-    public ManagerAccountsViewPage(){
+    public ManagerAccountsViewPage(BankManager manager){
         JLabel title = new JLabel("All customer accounts");
         title.setBounds(100, 100, 200, 50);
         add(title);
 
         
 
-        ArrayList<Account> allAccs = BankManager.getAllAccounts();
+        ArrayList<Account> allAccs = manager.lookUpAllAccounts();
         ArrayList<String> allAccsStr = new ArrayList<String>();
         for (Account account : allAccs) {
             allAccsStr.add(account.toString());

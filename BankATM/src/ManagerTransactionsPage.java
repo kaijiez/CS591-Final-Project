@@ -1,16 +1,17 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.time.*;
 public class ManagerTransactionsPage extends JFrame implements ActionListener{
 
     JButton back;
-    public ManagerTransactionsPage(){
+    public ManagerTransactionsPage(BankManager manager){
         JLabel title = new JLabel("All customer transactions");
         title.setBounds(100, 100, 200, 50);
         add(title);
 
-        
 
-        String[] allTransactions = BankManager.getAllTransactions().split("\n");
+
+        String[] allTransactions = manager.viewDailyTransactions(LocalDate.now().toString()).split("\n");
         
         JList<String> accsList = new JList<String>(allTransactions);
 

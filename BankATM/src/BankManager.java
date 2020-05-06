@@ -139,6 +139,8 @@ public class BankManager extends BankUser {
 	
 	// get daily transaction by date from the database
 	public String viewDailyTransactions(String date){
+		String[] string = date.split("-");
+		String today = string[1] + "/" + string[2];
 		String display="";
 		ArrayList<ArrayList<String>> res;
 		String query="SELECT Username, Type, a.id, t.amount, Date FROM Transactions t "

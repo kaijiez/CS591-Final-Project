@@ -56,7 +56,7 @@ public class LoginPage extends JFrame implements ActionListener{
         //check for bankmanager login
         else if(manager.logIn()){
         	System.out.println("Success! Moving to Manager home page");
-            new ManagerHomePage("admin");
+            new ManagerHomePage("admin", "admin");
             setVisible(false);
             dispose();
         }
@@ -95,7 +95,7 @@ public class LoginPage extends JFrame implements ActionListener{
     
 
     public static void main(String[] args) {
-        JFrame frame = new LoginPage();
+        new LoginPage();
         
     }
 }

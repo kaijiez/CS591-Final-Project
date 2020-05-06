@@ -3,10 +3,10 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class ManagerHomePage extends JFrame implements ActionListener{
-    //Manager man
+    BankManager man;
     protected JButton accounts, transactions, todayTransactions, loans, viewStockMarket, editStockMarket, logout; 
-    public ManagerHomePage(String username){
-        //man = new manager(username);
+    public ManagerHomePage(String username, String password){
+        man = new BankManager(username, password);
         JPanel panel = new JPanel();
         setTitle("Home Page");
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -47,8 +47,7 @@ public class ManagerHomePage extends JFrame implements ActionListener{
         Object source = e.getSource();
         if(source.equals(accounts)){
             System.out.println("Accounts button");
-            //new ManagerAccountsViewPage(); //tentatively done
-            
+            new ManagerAccountsViewPage(this.man);
         }
         else if(source.equals(transactions)){
             System.out.println("transactions button");
