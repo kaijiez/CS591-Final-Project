@@ -6,9 +6,12 @@ import java.util.ArrayList;
 
 
 public class CustomerAccountsPage extends JFrame implements ActionListener{
-    Customer cust;
-	
+    Customer cust;	
 	ArrayList<Account> accounts;
+
+    //Page with a list of all customer accounts
+
+
     JList Jtest;
     JList accountList;
     JLabel details;

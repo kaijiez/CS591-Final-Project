@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CreateAccountPage extends JFrame implements ActionListener{
+    //Page for a customer to create a new account
+
     JLabel username, password;
     JTextField usernameField;
     JButton createAccount;

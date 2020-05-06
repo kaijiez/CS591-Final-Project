@@ -1,8 +1,15 @@
 import javax.swing.*;
+
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 import java.util.Arrays;
 public class StockMarketPage extends JFrame implements ActionListener {
+
     Customer cust;
+    //Landing page where the customer will move to the stock market using a selected securities account
+
+
     JButton back, edit;
     JList<String> accountList;
     public StockMarketPage(Customer customer){
@@ -10,34 +17,34 @@ public class StockMarketPage extends JFrame implements ActionListener {
 
 
         JLabel market = new JLabel("Welcome to the Stock Market");
-        market.setBounds(400, 100, 250, 100);
+        market.setFont(new Font("Arial", Font.PLAIN, 40));
+        market.setBounds(300, 50, 550, 100);
         add(market);
 
         JLabel choose = new JLabel("Please choose an account to use in the market");
-        choose.setBounds(100, 150, 300, 50);
+        choose.setFont(new Font("Arial", Font.PLAIN, 30));
+        choose.setBounds(100, 150, 700, 50);
         add(choose);
-        //Arraylist<Securities> accounts = cust.getSecurities;
-        //Arraylist<String> ids= new Arraylist<String>();
-        // for (Securities sec : accounts) {
-        //     ids.add(sec.getAccountId);
-        // }
-//        String[] data = {"one", "two", "three", "four"};
+
         String[] data = Arrays.copyOf(cust.getAccounts().toArray(), cust.getAccounts().toArray().length, String[].class);
         accountList = new JList<String>(data);
-
+        accountList.setFont(new Font("Arial", Font.PLAIN, 30));
         JScrollPane scrollPane = new JScrollPane();
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0,30));
         scrollPane.setViewportView(accountList);
         accountList.setLayoutOrientation(JList.VERTICAL);
-        scrollPane.setBounds(100, 200, 400, 200);
+        scrollPane.setBounds(50, 250, 500, 500);
         add(scrollPane);
         back = new JButton("Back");
+        back.setFont(new Font("Arial", Font.PLAIN, 30));
         back.addActionListener(this);
-        back.setBounds(100, 800, 100, 30);
+        back.setBounds(100, 800, 200, 100);
         add(back);
 
         edit = new JButton("Use this account");
+        edit.setFont(new Font("Arial", Font.PLAIN, 30));
         edit.addActionListener(this);
-        edit.setBounds(650, 350, 250, 100);
+        edit.setBounds(600, 350, 300, 100);
         add(edit);
         setSize(1000, 1000);
         setLocation(300, 300);

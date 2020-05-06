@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.event.*;
 import java.util.*;
 public class EditStockMarketPage extends JFrame implements ActionListener{
+    //Page for the bank manager to edit the stock market
+
     JButton back, delete, addNew;
     JList<String> availStocks;
     StockMarket s;
@@ -28,6 +30,12 @@ public class EditStockMarketPage extends JFrame implements ActionListener{
         availStocks.setLayoutOrientation(JList.VERTICAL);
         scrollPane2.setBounds(100, 200, 500, 500);
         add(scrollPane2);
+        
+        addNew = new JButton("Add a new stock");
+        addNew.setBounds(650, 300,  300, 100);
+        addNew.addActionListener(this);
+        add(addNew);
+        
 
         delete = new JButton("delete this stock");
         delete.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -66,7 +74,7 @@ public class EditStockMarketPage extends JFrame implements ActionListener{
             dispose();
         }
         else if(source.equals(addNew)){
-            //new addStockPage();
+            new AddStockPage(s);
         }
 
     }

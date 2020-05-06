@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.event.*;
 import java.text.NumberFormat;
 public class OpenAccountPage extends JFrame implements ActionListener{
+    //Page where a customer can open a new bank account with the bank
+
     //Customer cust
     JButton confirm, cancel;
     JRadioButton checking, savings;
