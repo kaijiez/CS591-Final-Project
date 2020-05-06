@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.event.*;
 import java.util.*;
 public class EditStockMarketPage extends JFrame implements ActionListener{
+    //Page for the bank manager to edit the stock market
+
     JButton back, delete, addNew;
     JList<String> availStocks;
     StockMarket s;

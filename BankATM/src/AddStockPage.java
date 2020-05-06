@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.text.*;
 public class AddStockPage extends JFrame implements ActionListener{
+    //Page for the manager to input and add a new stock to the stock market
+
     JButton back, add;
     JTextField stockName;
     JFormattedTextField stockPrice;

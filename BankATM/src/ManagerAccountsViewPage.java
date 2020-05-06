@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ManagerAccountsViewPage extends JFrame implements ActionListener{
+    //Page where the manager can view every account at the bank currently.
+
     JButton back;
     public ManagerAccountsViewPage(BankManager manager){
         JLabel title = new JLabel("All customer accounts:");

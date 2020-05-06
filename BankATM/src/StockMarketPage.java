@@ -5,7 +5,11 @@ import java.awt.Font;
 import java.awt.event.*;
 import java.util.Arrays;
 public class StockMarketPage extends JFrame implements ActionListener {
+
     Customer cust;
+    //Landing page where the customer will move to the stock market using a selected securities account
+
+
     JButton back, edit;
     JList<String> accountList;
     public StockMarketPage(Customer customer){
@@ -21,12 +25,7 @@ public class StockMarketPage extends JFrame implements ActionListener {
         choose.setFont(new Font("Arial", Font.PLAIN, 30));
         choose.setBounds(100, 150, 700, 50);
         add(choose);
-        //Arraylist<Securities> accounts = cust.getSecurities;
-        //Arraylist<String> ids= new Arraylist<String>();
-        // for (Securities sec : accounts) {
-        //     ids.add(sec.getAccountId);
-        // }
-//        String[] data = {"one", "two", "three", "four"};
+
         String[] data = Arrays.copyOf(cust.getAccounts().toArray(), cust.getAccounts().toArray().length, String[].class);
         accountList = new JList<String>(data);
         accountList.setFont(new Font("Arial", Font.PLAIN, 30));

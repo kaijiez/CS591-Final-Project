@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.*;
 
 public class StartUpPage extends JFrame{
+    //Initial landing page when the application starts
     
     public StartUpPage(){
         JButton loginButton = new JButton("Login");

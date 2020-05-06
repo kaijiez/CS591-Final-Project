@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
 public class CustomerTransactionsPage extends JFrame implements ActionListener{
+    //Page for customers to view their list of bank transactions
+
     JButton back;
     Customer cust;
     public CustomerTransactionsPage(Customer cust){
