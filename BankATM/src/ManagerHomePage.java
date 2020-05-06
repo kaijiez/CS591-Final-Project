@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class ManagerHomePage extends JFrame implements ActionListener{
+    //Home page for the manager to access all of the functions the bank manager can use
+
     //Manager man
     protected JButton accounts, transactions, todayTransactions, loans, viewStockMarket, editStockMarket, logout; 
     public ManagerHomePage(String username){

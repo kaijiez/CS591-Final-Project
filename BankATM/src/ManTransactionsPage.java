@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.swing.*;
 public class ManTransactionsPage extends JFrame implements ActionListener{
+    //Page for the manager to view all of the transactions for a day.
 
     JButton back;
     BankManager man;

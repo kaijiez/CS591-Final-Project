@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class CustomerLoansPage extends JFrame implements ActionListener{
+    //Page for customer to view their current loans with the bank
+
     JButton back;
     //Customer cust
 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 
 public class CustomerAccountsPage extends JFrame implements ActionListener{
+    //Page with a list of all customer accounts
+    
     // Customer cust
     JList Jtest;
     JList accountList;

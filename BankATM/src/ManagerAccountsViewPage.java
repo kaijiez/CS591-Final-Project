@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class ManagerAccountsViewPage extends JFrame implements ActionListener{
+    //Page where the manager can view every account at the bank currently.
+
     JButton back;
     public ManagerAccountsViewPage(){
         JLabel title = new JLabel("All customer accounts");

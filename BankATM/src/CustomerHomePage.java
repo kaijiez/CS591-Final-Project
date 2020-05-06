@@ -3,11 +3,9 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class CustomerHomePage extends JFrame implements ActionListener{
-    /**
-     *
-     */
-    private static final long serialVersionUID = 5667596637661588200L;
-     Customer cust;
+    //Landing page for a customer to access the bank's functions
+
+    Customer cust;
     protected JButton accounts, transactions, stockMarket, logout, newAcc, loanApp, currLoans; 
     public CustomerHomePage(Customer cust){
         this.cust=cust;

@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.text.NumberFormat;
 
 public class LoanAppPage extends JFrame implements ActionListener{
+    //Page for customers to apply for a loan and give a collateral
+
     //Customer cust;
     JButton confirm, back;
     JFormattedTextField amount;

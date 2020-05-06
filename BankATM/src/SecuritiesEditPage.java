@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class SecuritiesEditPage extends JFrame implements ActionListener{
+    //Page for a customer to sell their own stocks or to buy a new stock
+
     Securities sec;
     JList<String> yourStocks, availStocks;
     JButton sell,buy, cancel;

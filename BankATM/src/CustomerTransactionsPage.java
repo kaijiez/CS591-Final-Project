@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.*;
 public class CustomerTransactionsPage extends JFrame implements ActionListener{
+    //Page for customers to view their list of bank transactions
+
     JButton back;
     //customer cust;
     public CustomerTransactionsPage(/*Customer customer*/){

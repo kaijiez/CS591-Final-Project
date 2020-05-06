@@ -3,6 +3,8 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class LoginPage extends JFrame implements ActionListener{
+    //Main login page where either customers or managers can log in
+
     JLabel username, password;
     JTextField usernameField;
     JButton login;

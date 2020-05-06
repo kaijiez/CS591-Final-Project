@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.*;
 public class StockMarketPage extends JFrame implements ActionListener {
+    //Landing page where the customer will move to the stock market using a selected securities account
+
     //Customer cust
     JButton back, edit;
     JList<String> accountList;
@@ -64,6 +66,7 @@ public class StockMarketPage extends JFrame implements ActionListener {
     }
     
     public static void main(String[] args) {
+        StockMarket s = new StockMarket();
         new StockMarketPage();
     }
 }

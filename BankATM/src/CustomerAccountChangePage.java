@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.text.NumberFormat;
 
 public class CustomerAccountChangePage extends JFrame implements ActionListener{
+    //Page for a customer to make a deposit, withdrawl, or create a securities account from an existing savings account
+
     Account acc;
     JRadioButton deposit, withdraw;
     JFormattedTextField amount;
