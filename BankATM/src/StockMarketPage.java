@@ -1,11 +1,11 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.*;
 public class StockMarketPage extends JFrame implements ActionListener {
-    //Customer cust
     JButton back, edit;
     JList<String> accountList;
-    public StockMarketPage(/*Customer customer*/){
-        //cust=customer
+    ArrayList<Securities> accounts;
+    public StockMarketPage(Customer customer){
         JLabel market = new JLabel("Welcome to the Stock Market");
         market.setBounds(400, 100, 250, 100);
         add(market);
@@ -13,13 +13,12 @@ public class StockMarketPage extends JFrame implements ActionListener {
         JLabel choose = new JLabel("Please choose an account to use in the market");
         choose.setBounds(100, 150, 300, 50);
         add(choose);
-        //Arraylist<Securities> accounts = cust.getSecurities;
-        //Arraylist<String> ids= new Arraylist<String>();
-        // for (Securities sec : accounts) {
-        //     ids.add(sec.getAccountId);
-        // }
-        String[] data = {"one", "two", "three", "four"};
-        accountList = new JList<String>(data);
+        ArrayList<Securities> accounts = customer.retrieveSecurities();
+        ArrayList<String> ids= new ArrayList<String>();
+        for (Securities sec : accounts) {
+             ids.add(sec.getId());
+        }
+        accountList = new JList<String>((String[]) ids.toArray());
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(accountList);
         accountList.setLayoutOrientation(JList.VERTICAL);
@@ -54,8 +53,8 @@ public class StockMarketPage extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please select an account to use.");
             }
             else{
-                // Securities selectedSec = accounts.get(selected);
-                //new SecuritiesEditPage(/*selectedSec */);
+                Securities selectedSec = accounts.get(selected);
+                new SecuritiesEditPage(selectedSec);
                 setVisible(false);
                 dispose();
             }
@@ -64,6 +63,6 @@ public class StockMarketPage extends JFrame implements ActionListener {
     }
     
     public static void main(String[] args) {
-        new StockMarketPage();
+        new StockMarketPage(/*customer here!*/);
     }
 }

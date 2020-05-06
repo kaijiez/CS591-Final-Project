@@ -52,7 +52,7 @@ public class StockMarket {
     	return allStocks;
     }
 
-    public ArrayList<Stock> get_open_positions(){
+    public static ArrayList<Stock> get_open_positions(){
     	ArrayList<Stock> open_positions= new ArrayList<Stock>();
     	for(Stock s: allStocks){
     		if(s.getAmount()>0){
