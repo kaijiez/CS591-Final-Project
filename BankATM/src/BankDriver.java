@@ -6,7 +6,7 @@ import database.SQLite;
 public class BankDriver {
 	
 	private static void dbTestCases(){
-//		SQLite.init();
+		SQLite.init();
 		
 //		SQLite.insert("Customers", new String[]{"Username","Password"}, new String[]{"Bob","BobPassword"}, new String[]{"TEXT","TEXT"});
 //		SQLite.insert("Accounts", new String[]{"Type","Amount","Customer_id","DateCreated"}, 
@@ -55,7 +55,7 @@ public class BankDriver {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		new StockMarket();
+//		new StockMarket();
 		dbTestCases();
 		
 		  

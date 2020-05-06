@@ -1,22 +1,24 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ManagerAccountsViewPage extends JFrame implements ActionListener{
     JButton back;
-    public ManagerAccountsViewPage(){
-        JLabel title = new JLabel("All customer accounts");
-        title.setBounds(100, 100, 200, 50);
+    public ManagerAccountsViewPage(BankManager manager){
+        JLabel title = new JLabel("All customer accounts:");
+        title.setBounds(100, 50, 200, 50);
         add(title);
 
         
 
-        ArrayList<Account> allAccs = BankManager.getAllAccounts();
+        ArrayList<Account> allAccs = manager.lookUpAllAccounts();
         ArrayList<String> allAccsStr = new ArrayList<String>();
         for (Account account : allAccs) {
             allAccsStr.add(account.toString());
         }
-        JList<String> accsList = new JList<String>((String[]) allAccsStr.toArray());
+        String[] allAccounts= Arrays.copyOf(allAccsStr.toArray(), allAccsStr.toArray().length, String[].class);
+        JList<String> accsList = new JList<String>(allAccounts);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(accsList);
@@ -26,6 +28,7 @@ public class ManagerAccountsViewPage extends JFrame implements ActionListener{
 
         back = new JButton("Back");
         back.setBounds(400, 800, 200, 50);
+        back.addActionListener(this);
         add(back);
 
         setSize(1000,1000);
@@ -39,8 +42,10 @@ public class ManagerAccountsViewPage extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        setVisible(false);
-        dispose();
+    	if(e.getSource().equals(back)){
+    		setVisible(false);
+            dispose();
+    	}
 
     }
     

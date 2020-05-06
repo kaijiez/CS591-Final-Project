@@ -3,10 +3,11 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class ManagerHomePage extends JFrame implements ActionListener{
-    //Manager man
+    BankManager man;
+    // manager has a stockmarket
     protected JButton accounts, transactions, todayTransactions, loans, viewStockMarket, editStockMarket, logout; 
-    public ManagerHomePage(String username){
-        //man = new manager(username);
+    public ManagerHomePage(String username, String password){
+        man = new BankManager(username, password);
         JPanel panel = new JPanel();
         setTitle("Home Page");
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -47,24 +48,23 @@ public class ManagerHomePage extends JFrame implements ActionListener{
         Object source = e.getSource();
         if(source.equals(accounts)){
             System.out.println("Accounts button");
-            //new ManagerAccountsViewPage(); //tentatively done
-            
+            new ManagerAccountsViewPage(this.man);
         }
         else if(source.equals(transactions)){
             System.out.println("transactions button");
-            //new ManagerTransactionsPage(); //tentatively done
+            new ManagerTransactionsPage(this.man);
         }
         else if(source.equals(editStockMarket)){
             System.out.println("Edit Stock Market Button");
-            //new EditStockMarketPage(); //tentatively done
+            new EditStockMarketPage(man.getStockMarket());
         }
         else if(source.equals(loans)){
             System.out.println("Loans button");
-            //new loanApprovalPage();
+            new LoanApprovalPage(this.man);
         }
         else if(source.equals(todayTransactions)){
             System.out.println("Today's Transactions");
-            //new ManTransactionsPage(); //tentatively implemented
+            new ManTransactionsPage(this.man);
         }
         else if(source.equals(logout)){
             System.out.println("Logout button");
@@ -81,9 +81,9 @@ public class ManagerHomePage extends JFrame implements ActionListener{
         container.add(button);
     }
 
-    public static void main(String[] args) {
-        new ManagerHomePage("Pat");
-    }
+//    public static void main(String[] args) {
+//        new ManagerHomePage("Pat");
+//    }
 
     
 }

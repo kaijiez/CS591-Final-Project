@@ -56,7 +56,7 @@ public class LoginPage extends JFrame implements ActionListener{
         //check for bankmanager login
         else if(manager.logIn()){
         	System.out.println("Success! Moving to Manager home page");
-            new ManagerHomePage("admin");
+            new ManagerHomePage("admin", "admin");
             setVisible(false);
             dispose();
         }
@@ -64,38 +64,13 @@ public class LoginPage extends JFrame implements ActionListener{
         	System.out.println("Login unsuccessful, invalid username or password");
         }
         
-//        if(user.equals("boop")){
-//            if(passTry.equals("boop")){
-//                System.out.println("Success! moving to main page");
-//                new CustomerHomePage(user);
-//                setVisible(false);
-//                dispose();
-//            }
-//            else{
-//                System.out.println("Login unsuccessful, invalid username or password");       
-//            }
-//        }
-//        else if(user.equals("admin")){//backend check if admin, if true, new admin page
-//            if(passTry.equals("admin")){
-//                System.out.println("Success! Moving to Manager home page");
-//                new ManagerHomePage("admin");
-//                setVisible(false);
-//                dispose();
-//            }
-//            else{
-//                System.out.println("Login unsuccessful, invalid username or password");
-//            }
-//        }
-//        else{
-//            System.out.println("Login unsuccessful, invalid username or password");       
-//        }
 
     }
 
     
 
     public static void main(String[] args) {
-        JFrame frame = new LoginPage();
+        new LoginPage();
         
     }
 }

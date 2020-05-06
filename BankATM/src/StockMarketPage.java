@@ -7,6 +7,8 @@ public class StockMarketPage extends JFrame implements ActionListener {
     JList<String> accountList;
     public StockMarketPage(Customer customer){
         cust=customer;
+
+
         JLabel market = new JLabel("Welcome to the Stock Market");
         market.setBounds(400, 100, 250, 100);
         add(market);
@@ -22,6 +24,7 @@ public class StockMarketPage extends JFrame implements ActionListener {
 //        String[] data = {"one", "two", "three", "four"};
         String[] data = Arrays.copyOf(cust.getAccounts().toArray(), cust.getAccounts().toArray().length, String[].class);
         accountList = new JList<String>(data);
+
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(accountList);
         accountList.setLayoutOrientation(JList.VERTICAL);
@@ -56,6 +59,7 @@ public class StockMarketPage extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please select an account to use.");
             }
             else{
+
             	if(selected<cust.getAccList().size()){
             		if(cust.getAccList().get(selected).getType().toLowerCase().equals("securities")){
             			 Securities selectedSec = (Securities)cust.getAccList().get(selected);
@@ -64,6 +68,7 @@ public class StockMarketPage extends JFrame implements ActionListener {
             		}
             	}
                 
+
                 setVisible(false);
                 dispose();
             }
@@ -72,6 +77,6 @@ public class StockMarketPage extends JFrame implements ActionListener {
     }
     
     public static void main(String[] args) {
-//        new StockMarketPage();
+
     }
 }

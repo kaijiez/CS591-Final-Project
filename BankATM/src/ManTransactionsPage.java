@@ -1,5 +1,6 @@
 import java.awt.event.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.swing.*;
@@ -12,7 +13,10 @@ public class ManTransactionsPage extends JFrame implements ActionListener{
         JLabel title = new JLabel("Transactions for day: "+LocalDate.now().toString());
         title.setBounds(100, 100, 500, 100);
         add(title);
-
+        
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");
+//		String todayDate=dtf.format(java.time.LocalDate.now());
+        System.out.println(LocalDate.now().toString());
         String[] transacs = man.viewDailyTransactions(LocalDate.now().toString()).split("\n");
         JList<String> transaclist = new JList<String>(transacs);
         JScrollPane scrollPane = new JScrollPane();
@@ -38,6 +42,10 @@ public class ManTransactionsPage extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
+    	if(e.getSource().equals(back)){
+    		setVisible(false);
+    		dispose();
+    	}
 
     }
     
