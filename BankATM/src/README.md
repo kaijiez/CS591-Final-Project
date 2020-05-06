@@ -40,12 +40,22 @@ Currency: represents physical currencies supported by the bank, abstract class w
 CurrencyConverter: class that converts any money to chosen currency
 
 Front-End pages:
+AddStockPage: allows Bank Manager to add stock to the stock market
 CreateAccountPage: where users will choose username/password for new account
 CustomerAccountsPage: overview of all customer accounts in the bank
 CustomerHomePage: user's main page of all accounts info and possible actions to take on accounts
+CustomerLoansPage: allows customers to see all their loans
+CustomerTransactionsPage: allows customers to see all their transactions in their accounts
 EditStockMarketPage: admin can change stock values
+LoanAppPage: sees user's loan applications
+LoanApprovalPage: allows bank manager to approve of pending loans
 LoginPage: where user will input username/password to get to home page
+ManagerAccountsViewPage: allows manager to see all accounts in the banks
 ManagerHomePage: admin's main page which offers options like customer overview /changing stock prices
+ManagerTransactionsPage: allows managers to see all customer transactions
+ManTransactionsPage: allows managers to see all daily transactions
+OpenAccountPage: creating a new accounts for bank
 StartUpPage: Page where users can choose to either login or create a new account
 StockMarketPage: page where users can see open positions in stock market
 SecuritiesEditPage: page where customers can buy/sell their stock
+
