@@ -77,9 +77,9 @@ public class StockMarket {
     
 
     public void createStock(String name, double price, int amount){
-    	int newId=SQLite.insert("StockMarket", new String[]{"Name","Price"}, 
-    								 new String[]{name,Double.toString(price)}, 
-    								 new String[]{"text","real"});
+    	int newId=SQLite.insert("StockMarket", new String[]{"Name","Price","Amount"}, 
+    								 new String[]{name,Double.toString(price),Integer.toString(amount)}, 
+    								 new String[]{"text","real","integer"});
     	Stock stock = new Stock(Integer.toString(newId),name,price,amount);
     	allStocks.add(stock);
 

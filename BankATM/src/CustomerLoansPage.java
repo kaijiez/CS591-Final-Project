@@ -1,7 +1,5 @@
 import javax.swing.*;
 
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;

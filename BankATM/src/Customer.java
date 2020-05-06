@@ -20,7 +20,7 @@ public class Customer extends BankUser {
 		//check if username and password already exist
 		String query;
 		ArrayList<ArrayList<String>> res;
-		query="SELECT id FROM Customers WHERE Username = "+Username;
+		query="SELECT id FROM Customers WHERE Username = '"+Username+"'";
 		res=SQLite.query(query, new String[]{"id"}, new String[]{"integer"});
 		
 		if(res!=null){
