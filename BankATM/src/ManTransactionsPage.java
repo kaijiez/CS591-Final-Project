@@ -1,3 +1,5 @@
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +13,8 @@ public class ManTransactionsPage extends JFrame implements ActionListener{
     public ManTransactionsPage(BankManager manager){
         man = manager;
         JLabel title = new JLabel("Transactions for day: "+LocalDate.now().toString());
-        title.setBounds(100, 100, 500, 100);
+        title.setFont(new Font("Arial", Font.PLAIN, 40));
+        title.setBounds(100, 50, 800, 100);
         add(title);
         
 //        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd");
@@ -19,16 +22,19 @@ public class ManTransactionsPage extends JFrame implements ActionListener{
         System.out.println(LocalDate.now().toString());
         String[] transacs = man.viewDailyTransactions(LocalDate.now().toString()).split("\n");
         JList<String> transaclist = new JList<String>(transacs);
+        transaclist.setFont(new Font("Arial", Font.PLAIN, 30));
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(transaclist);
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0,30));
         transaclist.setLayoutOrientation(JList.VERTICAL);
-        scrollPane.setBounds(100, 200, 400, 500);
+        scrollPane.setBounds(100, 200, 700, 500);
         add(scrollPane);
         
         
 
         back = new JButton("Back");
-        back.setBounds(400, 750, 300, 100);
+        back.setBounds(300, 750, 300, 100);
+        back.setFont(new Font("Arial", Font.PLAIN, 30));
         back.addActionListener(this);
         add(back);
 

@@ -14,9 +14,15 @@ public class LoginPage extends JFrame implements ActionListener{
         
         username = new JLabel("username");
         password = new JLabel("password");
+        username.setFont(new Font("Arial", Font.PLAIN, 40));
+        password.setFont(new Font("Arial", Font.PLAIN, 40));
         usernameField = new JTextField();
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 40));
         passwordField = new JPasswordField();
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 40));
         login = new JButton("Login");
+        login.setPreferredSize(new Dimension(300, 300));
+        login.setFont(new Font("Arial", Font.PLAIN, 40));
         login.addActionListener(this);
         setTitle("LOGIN FORM");
         // username.setBounds(80, 70, 200, 30);
@@ -32,7 +38,7 @@ public class LoginPage extends JFrame implements ActionListener{
         panel.add(login);
         add(panel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 500);
+        setSize(1000, 1000);
         setLocation(500,500);
         setVisible(true);
     }

@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 import java.util.*;
 public class EditStockMarketPage extends JFrame implements ActionListener{
@@ -8,7 +11,8 @@ public class EditStockMarketPage extends JFrame implements ActionListener{
     public EditStockMarketPage(StockMarket mk){
         this.s = mk;
         JLabel title = new JLabel("Edit Stock Market");
-        title.setBounds(100, 100, 200, 50);
+        title.setFont(new Font("Arial", Font.PLAIN, 40));
+        title.setBounds(100, 50, 400, 100);
         add(title);
         
         ArrayList<String> availStockStrings = new ArrayList<String>();
@@ -17,19 +21,23 @@ public class EditStockMarketPage extends JFrame implements ActionListener{
         }
         String[] availStock=Arrays.copyOf(availStockStrings.toArray(), availStockStrings.toArray().length, String[].class);
         availStocks = new JList<String>(availStock);
+        availStocks.setFont(new Font("Arial", Font.PLAIN, 30));
         JScrollPane scrollPane2= new JScrollPane();
+        scrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0,30));
         scrollPane2.setViewportView(availStocks);
         availStocks.setLayoutOrientation(JList.VERTICAL);
         scrollPane2.setBounds(100, 200, 500, 500);
         add(scrollPane2);
 
         delete = new JButton("delete this stock");
-        delete.setBounds(650, 400, 300, 100);
+        delete.setFont(new Font("Arial", Font.PLAIN, 30));
+        delete.setBounds(650, 600, 300, 100);
         delete.addActionListener(this);
         add(delete);
 
         back = new JButton("Back");
-        back.setBounds(400, 800, 200, 100);
+        back.setBounds(350, 800, 300, 100);
+        back.setFont(new Font("Arial", Font.PLAIN, 30));
         back.addActionListener(this);
         add(back);
 

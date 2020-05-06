@@ -1,6 +1,9 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 
 public class StartUpPage extends JFrame{
@@ -8,6 +11,10 @@ public class StartUpPage extends JFrame{
     public StartUpPage(){
         JButton loginButton = new JButton("Login");
         JButton createAccountButton = new JButton("Creat Account");
+        loginButton.setPreferredSize(new Dimension(300, 300));
+        loginButton.setFont(new Font("Arial", Font.PLAIN, 40));
+        createAccountButton.setPreferredSize(new Dimension(300,300));
+        createAccountButton.setFont(new Font("Arial", Font.PLAIN, 40));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         JPanel panel = new JPanel();
@@ -51,8 +58,8 @@ public class StartUpPage extends JFrame{
     public static void main(String[] args) {
         JFrame frame = new StartUpPage();
         frame.setTitle("Main Page");    
-        frame.setSize(500, 500);
-        frame.setLocation(500, 500);
+        frame.setSize(1000, 1000);
+        frame.setLocation(1000, 1000);
 
         frame.setVisible(true);
 

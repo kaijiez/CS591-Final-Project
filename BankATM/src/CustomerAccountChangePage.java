@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.*;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -17,14 +18,17 @@ public class CustomerAccountChangePage extends JFrame implements ActionListener{
         if(acc.getType().equals("Securities")){
         	
             JLabel accLabel = new JLabel("Please visit the Stock market to make changes to Account: "+acc.account_id);
-            accLabel.setBounds(300, 100, 400, 100);
+            accLabel.setFont(new Font("Arial", Font.PLAIN, 25));
+            accLabel.setBounds(150, 100, 1000, 100);
             add(accLabel);
             JLabel currBal = new JLabel("Current Balance: "+acc.current_amount);
+            currBal.setFont(new Font("Arial", Font.PLAIN, 25));
             currBal.setBounds(300, 201, 400, 100);
             add(currBal);
             back = new JButton("Back");
             back.addActionListener(this);
-            back.setBounds(400, 800, 300, 100);
+            back.setFont(new Font("Arial", Font.PLAIN, 30));
+            back.setBounds(300, 800, 300, 100);
             add(back);
         }
         else{
@@ -42,17 +46,21 @@ public class CustomerAccountChangePage extends JFrame implements ActionListener{
             
             JLabel accLabel = new JLabel("Change to Account: "+acc.account_id);
             accLabel.setBounds(300, 100, 400, 100);
+            accLabel.setFont(new Font("Arial", Font.PLAIN, 30));
             add(accLabel);
             
             JLabel currBal = new JLabel("Current Balance: "+acc.current_amount);
             currBal.setBounds(300, 201, 400, 100);
+            currBal.setFont(new Font("Arial", Font.PLAIN, 30));
             add(currBal);
 
             withdraw = new JRadioButton("Withdraw");
-            withdraw.setBounds(300, 302, 100, 50);
+            withdraw.setBounds(300, 302, 200, 50);
+            withdraw.setFont(new Font("Arial", Font.PLAIN, 30));
             add(withdraw);
             deposit = new JRadioButton("Deposit");
-            deposit.setBounds(300, 353, 100, 50);
+            deposit.setBounds(300, 353, 200, 50);
+            deposit.setFont(new Font("Arial", Font.PLAIN, 30));
             add(deposit);
             ButtonGroup group = new ButtonGroup();
             group.add(withdraw);
@@ -62,17 +70,20 @@ public class CustomerAccountChangePage extends JFrame implements ActionListener{
             // amount = new JTextField("0");
             NumberFormat amountFormat = NumberFormat.getNumberInstance();
             amount = new JFormattedTextField(amountFormat);
-            amount.setBounds(400, 302, 100, 100);
+            amount.setFont(new Font("Arial", Font.PLAIN, 30));
+            amount.setBounds(500, 302, 200, 200);
             add(amount);
             
             confirm = new JButton("Confirm Transaction");
             confirm.addActionListener(this);
-            confirm.setBounds(400, 550, 300, 100);
+            confirm.setBounds(300, 550, 400, 100);
+            confirm.setFont(new Font("Arial", Font.PLAIN, 30));
             add(confirm);
 
             back = new JButton("Back");
             back.addActionListener(this);
-            back.setBounds(400, 800, 300, 100);
+            back.setFont(new Font("Arial", Font.PLAIN, 30));
+            back.setBounds(300, 800, 300, 100);
             add(back);
 
             
@@ -147,8 +158,8 @@ public class CustomerAccountChangePage extends JFrame implements ActionListener{
 
     }
     public static void main(String[] args) {
-//        Account test = new Checking(100,"123");
-//        Account test2 = new Securities(100, "1234");
-//        new CustomerAccountChangePage(test);
+        Customer test = new Customer("dfdf","123");
+        Account test2 = new Securities(100, "1234","dfdf");
+        new CustomerAccountChangePage(test2,test);
     }
 }
