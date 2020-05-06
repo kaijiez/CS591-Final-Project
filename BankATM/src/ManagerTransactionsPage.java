@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.time.*;
 import java.util.Arrays;
 public class ManagerTransactionsPage extends JFrame implements ActionListener{
+    //Page for manager to view all of the transactions for the whole bank
 
     JButton back;
     public ManagerTransactionsPage(BankManager manager){

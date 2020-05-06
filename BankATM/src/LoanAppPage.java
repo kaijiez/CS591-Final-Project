@@ -6,6 +6,9 @@ import java.text.NumberFormat;
 
 public class LoanAppPage extends JFrame implements ActionListener{
     Customer cust;
+
+    //Page for customers to apply for a loan and give a collateral
+
     JButton confirm, back;
     JFormattedTextField amount;
     JTextField collateral;

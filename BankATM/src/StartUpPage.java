@@ -7,13 +7,14 @@ import java.awt.Font;
 import java.awt.event.*;
 
 public class StartUpPage extends JFrame{
+    //Initial landing page when the application starts
     
     public StartUpPage(){
         JButton loginButton = new JButton("Login");
-        JButton createAccountButton = new JButton("Creat Account");
+        JButton createAccountButton = new JButton("Create Account");
         loginButton.setPreferredSize(new Dimension(300, 300));
         loginButton.setFont(new Font("Arial", Font.PLAIN, 40));
-        createAccountButton.setPreferredSize(new Dimension(300,300));
+        createAccountButton.setPreferredSize(new Dimension(400,300));
         createAccountButton.setFont(new Font("Arial", Font.PLAIN, 40));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -30,6 +31,11 @@ public class StartUpPage extends JFrame{
 
         CreateAccountListener caListen = new CreateAccountListener();
         createAccountButton.addActionListener(caListen);
+        setTitle("Main Page");    
+        setSize(1000, 1000);
+        setLocation(1000, 1000);
+
+        setVisible(true);
         
 
 
@@ -56,12 +62,8 @@ public class StartUpPage extends JFrame{
     }
 
     public static void main(String[] args) {
-        JFrame frame = new StartUpPage();
-        frame.setTitle("Main Page");    
-        frame.setSize(1000, 1000);
-        frame.setLocation(1000, 1000);
-
-        frame.setVisible(true);
+        new StartUpPage();
+        
 
     }
 }

@@ -7,6 +7,8 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 
 public class CustomerAccountChangePage extends JFrame implements ActionListener{
+    //Page for a customer to make a deposit, withdrawl, or create a securities account from an existing savings account
+
     Account acc;
     JRadioButton deposit, withdraw;
     JFormattedTextField amount;

@@ -1,7 +1,5 @@
 import javax.swing.*;
 
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.*;
@@ -9,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CustomerLoansPage extends JFrame implements ActionListener{
+    //Page for customer to view their current loans with the bank
+
     JButton back;
     Customer cust;
 

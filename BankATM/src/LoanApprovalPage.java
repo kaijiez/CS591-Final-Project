@@ -6,6 +6,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 public class LoanApprovalPage extends JFrame implements ActionListener{
+    //Page for the bank manager to reject or approve loans
+
     BankManager man;
     JButton approve, reject, back;
     JList<String> pendingLoanList;

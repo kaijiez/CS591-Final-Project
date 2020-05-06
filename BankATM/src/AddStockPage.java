@@ -2,11 +2,14 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.text.*;
 public class AddStockPage extends JFrame implements ActionListener{
+    //Page for the manager to input and add a new stock to the stock market
+
     JButton back, add;
     JTextField stockName;
     JFormattedTextField stockPrice;
-
-    public AddStockPage(){
+    StockMarket s;
+    public AddStockPage(StockMarket s){
+    	this.s = s;
         JLabel title = new JLabel("Add a new stock");
         title.setBounds(100, 100, 300, 50);
         add(title);
@@ -68,6 +71,7 @@ public class AddStockPage extends JFrame implements ActionListener{
                 }
                 else{
                     //add new stock(amount, name); what ever the call is
+                	s.createStock(name, amount, 25);
                     JOptionPane.showMessageDialog(this, "Successfully added stock");
                     dispose();
                 }
@@ -76,7 +80,7 @@ public class AddStockPage extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-        new AddStockPage();
+//        new AddStockPage();
     }
     
 }
