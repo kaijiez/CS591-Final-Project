@@ -25,4 +25,9 @@ public class Loan {
     public void setBorrowed_amount(double borrowed_amount) {this.borrowed_amount = borrowed_amount;}
     public void setApplyDate(String date){applyDate = date;}
     public void setApproveDate(String date){approveDate = date;}
+    
+    public String toString(){
+    	return "loan id: "+id+" with amount of "+borrowed_amount+" using Collateral: "+collateral.getName()+
+    			" is requested on: "+applyDate+" and approved on: "+approveDate;
+    }
 }

@@ -12,7 +12,7 @@ public class Customer extends BankUser {
 	public Customer(String Username, String Password){
 		super(Username,Password);
 		collaterals = new ArrayList<Collateral>();
-//		currencyTypes = new ArrayList<String>();
+		loans = new ArrayList<Loan>();
 	}
 	
 	//add customer to db when first sign up
@@ -119,6 +119,10 @@ public class Customer extends BankUser {
 		
 	}
 	
+	public ArrayList<Account> getAccList(){
+		return accounts;
+	}
+	
 	public boolean createCheckingOrSaving(String type,double amount){
 		amount-=OpenOrCloseFee;
 		//add new account to the owner's accounts
@@ -150,11 +154,13 @@ public class Customer extends BankUser {
 	}
 	
 	//check if the saving account has over $5000, and return the amount
-	private int checkOpenSecurities(String savingAccountId, double amount){
+	public int checkOpenSecurities(String savingAccountId, double amount){
 		
 		for(Account a: accounts){
 			if(a.getId().equals(savingAccountId)){
+				System.out.println("a.amount "+a.getAmount());
 				if(a.getAmount()>=5000 && a.getAmount()-amount>=2500 && amount>=1000){
+					System.out.println("checking open securites");
 					return (int) a.getAmount();
 				}
 			}
@@ -164,8 +170,10 @@ public class Customer extends BankUser {
 	
 	// create securiteis account by transfer money from a saving account
 	public boolean createSecurities(double amount, String savingAccountId){
-		amount=(1-OpenOrCloseFee)*amount;
+		amount-=OpenOrCloseFee;
+		System.out.println(amount);
 		int updatedAmount=checkOpenSecurities(savingAccountId,amount);
+		System.out.println(updatedAmount);
 		if(updatedAmount!=-1){
 			//calculate the updated saving account balance
 			if(updatedAmount<=amount){
@@ -179,6 +187,7 @@ public class Customer extends BankUser {
 															   new String[]{"real"});
 			
 			//create new securities account, and add to db
+			System.out.println("after update account");
 			int newid = SQLite.insert("Accounts", new String[]{"Type", "Amount","Customer_id","StartingAmount","DateCreated"},
 					  new String[]{"Securities",String.valueOf(amount),getId(),String.valueOf(amount),getCurrentDate()},
 					  new String[]{"text","real","integer","real","text"});
@@ -196,21 +205,26 @@ public class Customer extends BankUser {
 		ArrayList<ArrayList<String>> res;
 		String sql="SELECT t.Account_id, a.Type, t.Amount, t.Date FROM Transactions t INNER JOIN Accounts a on "
 				+ "t.Customer_id = a.Customer_id AND t.Account_id = a.id "
-				+ "WHERE t.Customer_id = 1 "
-				+ "ORDER BY Date DESC";
+				+ " WHERE t.Customer_id = "+id
+				+ " ORDER BY Date DESC";
 		res=SQLite.query(sql, new String[]{"Account_id","Type","Amount","Date"}, 
 						  new String[]{"integer","text","integer","text"});
 		if(res!=null){
 			for(int row=0;row<res.size();row++){
 				Account acc=null;
+				String acc_id=res.get(row).get(0);
 				for(Account a:accounts){
-					if(a.getId().equals(id)){
+					if(a.getId().equals(acc_id)){
 						acc = a;
 					}
 				}
-				double displayAmount= CurrencyConverter.convert_currency(acc.getPreferredCurrency(),acc.getAmount());
+				System.out.println(acc.getPreferredCurrency());
+				System.out.println(acc.getAmount());
+				Double displayAmount= CurrencyConverter.convert_currency(acc.getPreferredCurrency(),Double.parseDouble(res.get(row).get(2)));
+				
+				
 				display+=res.get(row).get(1)+"Account id "+res.get(row).get(0)+" made a transaction of "
-							+Double.toString(displayAmount)+" on "+res.get(row).get(3)+"\n";
+							+Double.toString(displayAmount)+" "+acc.getPreferredCurrency().getCurrency()+" on "+res.get(row).get(3)+"\n";
 			}
 		}
 		return display;
@@ -238,19 +252,15 @@ public class Customer extends BankUser {
 	}
 	
 	// request loads given amount and the specific collateral index
-	public boolean requestLoans(int amount , int collateralIndex , String collateral ){
-		if(collaterals.get(collateralIndex).isUsed()==false){
+	public boolean requestLoans(double amount , String collateral ){
+
 			int newid=SQLite.insert("Loans", new String[]{"Amount","Customer_id","Collateral","Interest","ApplyDate"},
-					   new String[]{Integer.toString(amount),id, collateral,Double.toString(LoanInterest),getCurrentDate()},
+					   new String[]{Double.toString(amount),id, collateral,Double.toString(LoanInterest),getCurrentDate()},
 					   new String[]{"real","integer","text","real","text"});
 //			collaterals.get(collateralIndex).setUsed(true);
 			loans.add(new Loan(Integer.toString(newid), amount, new Collateral("collateral"),0.05));
 			return true;
-		}
-		else{
-			System.out.println("collateral is already being used");
-		}
-		return false;
+
 	}
 	
 	public String displayCollaterals(){

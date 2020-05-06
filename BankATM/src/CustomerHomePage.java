@@ -62,19 +62,20 @@ public class CustomerHomePage extends JFrame implements ActionListener{
         }
         else if(source.equals(transactions)){
             System.out.println("transactions button");
-            new CustomerTransactionsPage(); //tentatively done
+            new CustomerTransactionsPage(cust); //tentatively done
         }
         else if(source.equals(stockMarket)){
             System.out.println("Stock market button");
-            //new StockMarketPage(); //tentatively done
+            new StockMarketPage(cust); //tentatively done
         }
         else if(source.equals(loanApp)){
             System.out.println("Loanapp button");
-            //new loanappPage(customer); //tentatively done
+            new LoanAppPage(cust); //tentatively done
         }
         else if(source.equals(currLoans)){
             System.out.println("current loans button");
-            //new CurrentLoansPage(Customer); //tentatively done
+//            new CurrentLoansPage(cust); //tentatively done
+            new CustomerLoansPage(cust);
         }
         else if(source.equals(logout)){
             System.out.println("Logout button"); //done

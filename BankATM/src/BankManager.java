@@ -15,7 +15,7 @@ public class BankManager extends BankUser {
 	
 	// verify if this person is bank manager
 	public boolean logIn(){
-		if(Username==_Username && Password==_Password){
+		if(Username.equals(_Username) && Password.equals(_Password)){
 			return true;
 		}
 		return false;

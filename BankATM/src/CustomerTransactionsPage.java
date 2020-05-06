@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.event.*;
 public class CustomerTransactionsPage extends JFrame implements ActionListener{
     JButton back;
-    //customer cust;
-    public CustomerTransactionsPage(/*Customer customer*/){
-        //cust = customer;
+    Customer cust;
+    public CustomerTransactionsPage(Customer cust){
+        this.cust = cust;
         JLabel lab = new JLabel("Here are your recent transactions");
         lab.setBounds(50,50,500,50);
         add(lab);
@@ -16,7 +16,8 @@ public class CustomerTransactionsPage extends JFrame implements ActionListener{
         //String trans = cust.viewTransactions();
         //String[] transArr = trans.split("\n");
         //JList transactions = new JList(transArr);
-        String[] data = {"one", "two", "three", "four"};
+//        String[] data = {"one", "two", "three", "four"};
+        String[] data = cust.viewTransactions().split("\n");
         JList<String> transactions = new JList<String>(data);
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(transactions);
@@ -42,6 +43,6 @@ public class CustomerTransactionsPage extends JFrame implements ActionListener{
 
 
     public static void main(String[] args) {
-        new CustomerTransactionsPage(/*customer*/);
+//        new CustomerTransactionsPage(/*customer*/);
     }
 }

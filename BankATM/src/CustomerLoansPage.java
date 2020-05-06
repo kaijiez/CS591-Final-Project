@@ -4,22 +4,24 @@ import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CustomerLoansPage extends JFrame implements ActionListener{
     JButton back;
-    //Customer cust
+    Customer cust;
 
-    public CustomerLoansPage(/*Customer customer*/){
-        //cust = customer;
+    public CustomerLoansPage(Customer cust){
+        this.cust = cust;
         JLabel title = new JLabel("All of your loans");
         title.setBounds(100, 100, 300, 100);
         add(title);
 
         ArrayList<String> loanStrs = new ArrayList<String>();
-        for (Loan loan : customer.getLoans()) {
+        for (Loan loan : cust.getLoans()) {
             loanStrs.add(loan.toString());
         }
-        JList<String> loans = new JList<String>((String[]) loanStrs.toArray());
+        String[] s=Arrays.copyOf(loanStrs.toArray(), loanStrs.toArray().length, String[].class);
+        JList<String> loans = new JList<String>((String[]) s);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(loans);

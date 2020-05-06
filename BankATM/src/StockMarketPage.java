@@ -1,11 +1,12 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Arrays;
 public class StockMarketPage extends JFrame implements ActionListener {
-    //Customer cust
+    Customer cust;
     JButton back, edit;
     JList<String> accountList;
-    public StockMarketPage(/*Customer customer*/){
-        //cust=customer
+    public StockMarketPage(Customer customer){
+        cust=customer;
         JLabel market = new JLabel("Welcome to the Stock Market");
         market.setBounds(400, 100, 250, 100);
         add(market);
@@ -18,7 +19,8 @@ public class StockMarketPage extends JFrame implements ActionListener {
         // for (Securities sec : accounts) {
         //     ids.add(sec.getAccountId);
         // }
-        String[] data = {"one", "two", "three", "four"};
+//        String[] data = {"one", "two", "three", "four"};
+        String[] data = Arrays.copyOf(cust.getAccounts().toArray(), cust.getAccounts().toArray().length, String[].class);
         accountList = new JList<String>(data);
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(accountList);
@@ -54,8 +56,14 @@ public class StockMarketPage extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Please select an account to use.");
             }
             else{
-                // Securities selectedSec = accounts.get(selected);
-                //new SecuritiesEditPage(/*selectedSec */);
+            	if(selected<cust.getAccList().size()){
+            		if(cust.getAccList().get(selected).getType().toLowerCase().equals("securities")){
+            			 Securities selectedSec = (Securities)cust.getAccList().get(selected);
+            			 System.out.println("yes");
+                        new SecuritiesEditPage(selectedSec);
+            		}
+            	}
+                
                 setVisible(false);
                 dispose();
             }
@@ -64,6 +72,6 @@ public class StockMarketPage extends JFrame implements ActionListener {
     }
     
     public static void main(String[] args) {
-        new StockMarketPage();
+//        new StockMarketPage();
     }
 }

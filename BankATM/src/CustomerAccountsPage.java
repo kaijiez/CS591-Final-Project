@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 
 public class CustomerAccountsPage extends JFrame implements ActionListener{
-    // Customer cust
+    Customer cust;
+	
+	ArrayList<Account> accounts;
     JList Jtest;
     JList accountList;
     JLabel details;
     JButton makeChange, back;
-    public CustomerAccountsPage(Customer cust){
+    public CustomerAccountsPage(Customer customer){
+    	this.cust = customer;
         //JPanel panel = new JPanel();
         details = new JLabel();
         details.setSize(500,100); 
@@ -72,12 +75,12 @@ public class CustomerAccountsPage extends JFrame implements ActionListener{
         else if(e.getSource().equals(makeChange)){
             System.out.println("bring to accountChangePage(getSelectedText)");
             details.setText(Jtest.getSelectedValue().toString());
-            int selected = accountList.getSelectedIndex();
+            int selected = Jtest.getSelectedIndex();
             if(selected==-1){
                 JOptionPane.showMessageDialog(this, "Please select an account");
             }
             else{
-                //new CustomerAccountChangePage(//accounts.get(selected));
+                new CustomerAccountChangePage(cust.getAccList().get(selected),cust);
             }
         }
         

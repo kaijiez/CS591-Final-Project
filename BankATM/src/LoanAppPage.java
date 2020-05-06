@@ -3,12 +3,12 @@ import java.awt.event.*;
 import java.text.NumberFormat;
 
 public class LoanAppPage extends JFrame implements ActionListener{
-    //Customer cust;
+    Customer cust;
     JButton confirm, back;
     JFormattedTextField amount;
     JTextField collateral;
-    public LoanAppPage(/*customer customer*/){
-        //cust = customer;
+    public LoanAppPage(Customer cust){
+        this.cust = cust;
         JLabel title = new JLabel("Welcome to the loan application page");
         title.setBounds(100, 100, 500, 20);
         add(title);
@@ -61,6 +61,8 @@ public class LoanAppPage extends JFrame implements ActionListener{
             dispose();
         }
         else if(source.equals(confirm)){
+        	 ((Number)amount.getValue()).doubleValue();
+        	cust.requestLoans(((Number)amount.getValue()).doubleValue(),collateral.getText());
             
             //logic to add the new loan to the queue??
             // if(true){
@@ -74,6 +76,6 @@ public class LoanAppPage extends JFrame implements ActionListener{
     }
     
     public static void main(String[] args) {
-        new LoanAppPage();
+//        new LoanAppPage();
     }
 }

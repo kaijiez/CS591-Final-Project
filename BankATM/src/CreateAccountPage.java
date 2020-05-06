@@ -45,7 +45,7 @@ public class CreateAccountPage extends JFrame implements ActionListener{
         	System.out.println("try again, either username or password is taken");
         }
         else{
-        	System.out.println("")
+        	System.out.println("");
         }
         
         setVisible(false);

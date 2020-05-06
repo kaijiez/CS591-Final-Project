@@ -22,6 +22,10 @@ public class Checking extends Account implements Transaction{
             SQLite.update("Accounts", "id = "+account_id, new String[]{"Amount"}, 
 					  new String[]{Double.toString(current_amount)}, 
 					  new String[]{"real"});
+            
+            SQLite.insert("Transactions", new String[]{"Customer_id","Account_id","Amount","Date"}, 
+					  new String[]{customer_id,account_id,Double.toString(-amount),getCurrentDate()},
+					  new String[]{"integer","integer","real","text"});
             return true;
         }
     }
@@ -34,5 +38,9 @@ public class Checking extends Account implements Transaction{
         SQLite.update("Accounts", "id = "+account_id, new String[]{"Amount"}, 
 				  new String[]{Double.toString(current_amount)}, 
 				  new String[]{"real"});
+        
+        SQLite.insert("Transactions", new String[]{"Customer_id","Account_id","Amount","Date"}, 
+				  new String[]{customer_id,account_id,Double.toString(amount),getCurrentDate()},
+				  new String[]{"integer","integer","real","text"});
     }
 }

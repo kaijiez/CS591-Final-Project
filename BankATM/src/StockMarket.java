@@ -8,7 +8,8 @@ public class StockMarket {
     
     public StockMarket(){
     	allStocks = new ArrayList<Stock>();
-    	allStocks.add(new Stock("0","preimeum testing stock",100,999));
+//    	allStocks.add(new Stock("0","preimeum testing stock",100,999));
+    	SQLite.update("StockMarket", "id = 0", new String[]{"Amount"}, new String[]{"999"}, new String[]{"integer"});
     	init();
     }
     
@@ -52,7 +53,7 @@ public class StockMarket {
     	return allStocks;
     }
 
-    public ArrayList<Stock> get_open_positions(){
+    public static ArrayList<Stock> get_open_positions(){
     	ArrayList<Stock> open_positions= new ArrayList<Stock>();
     	for(Stock s: allStocks){
     		if(s.getAmount()>0){
