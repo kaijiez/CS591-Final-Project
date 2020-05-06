@@ -12,10 +12,15 @@ public class CreateAccountPage extends JFrame implements ActionListener{
         JPanel panel = new JPanel(new GridLayout(3,1));
         
         username = new JLabel("username");
-        password = new JLabel("password");
+        password = new JLabel("password");;
+        username.setFont(new Font("Arial", Font.PLAIN, 40));
+        password.setFont(new Font("Arial", Font.PLAIN, 40));
         usernameField = new JTextField();
         passwordField = new JPasswordField();
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 40));
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 40));
         createAccount = new JButton("Create Account");
+        createAccount.setFont(new Font("Arial", Font.PLAIN, 40));
         createAccount.addActionListener(this);
         setTitle("CREATE ACCOUNT FORM");
 
@@ -26,7 +31,7 @@ public class CreateAccountPage extends JFrame implements ActionListener{
         panel.add(createAccount);
         add(panel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 500);
+        setSize(1000, 1000);
         setLocation(500,500);
         setVisible(true);
     }
@@ -45,7 +50,7 @@ public class CreateAccountPage extends JFrame implements ActionListener{
         	System.out.println("try again, either username or password is taken");
         }
         else{
-        	System.out.println("")
+        	System.out.println("");
         }
         
         setVisible(false);

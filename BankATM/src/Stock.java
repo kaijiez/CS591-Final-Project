@@ -11,8 +11,8 @@ public class Stock {
     protected double original_price;	//optional attribute
     protected int shares;	// number of shares
 
-    public Stock(String id, String name,double starting_price,int amount){
-        this.price = starting_price;
+    public Stock(String id, String name,double price,int amount){
+        this.price = price;
         this.name = name;
         this.id = id;
         this.shares=amount;

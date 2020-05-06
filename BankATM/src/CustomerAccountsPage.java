@@ -1,15 +1,20 @@
 import javax.swing.*;
+
+import java.awt.Font;
 import java.awt.event.*;
 import java.util.ArrayList;
 
 
 public class CustomerAccountsPage extends JFrame implements ActionListener{
-    // Customer cust
+    Customer cust;
+	
+	ArrayList<Account> accounts;
     JList Jtest;
     JList accountList;
     JLabel details;
     JButton makeChange, back;
-    public CustomerAccountsPage(Customer cust){
+    public CustomerAccountsPage(Customer customer){
+    	this.cust = customer;
         //JPanel panel = new JPanel();
         details = new JLabel();
         details.setSize(500,100); 
@@ -32,22 +37,27 @@ public class CustomerAccountsPage extends JFrame implements ActionListener{
         Jtest = new JList(test.toArray());
         
         Jtest.setBounds(100, 100,75,75);
+        Jtest.setFont(new Font("Arial", Font.PLAIN, 30));
         //accountList.setBounds(100, 100,200,200);
 
         
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(Jtest);
         Jtest.setLayoutOrientation(JList.VERTICAL);
-        scrollPane.setBounds(100, 100, 200, 200);
+  
+        scrollPane.setBounds(100, 100, 400, 400);
         add(scrollPane);
+        
         makeChange = new JButton("Make Change to Account");
+        makeChange.setFont(new Font("Arial", Font.PLAIN, 30));
         makeChange.addActionListener(this);
-        makeChange.setBounds(300,150,300,30);  
+        makeChange.setBounds(500,150,400,100);  
         
         back = new JButton("Back to Home");
+        back.setFont(new Font("Arial", Font.PLAIN, 30));
         
         back.addActionListener(this);
-        back.setBounds(200, 350, 150, 30);
+        back.setBounds(300, 550, 300, 100);
         add(back);
         //add(details);
         add(makeChange);
@@ -72,12 +82,12 @@ public class CustomerAccountsPage extends JFrame implements ActionListener{
         else if(e.getSource().equals(makeChange)){
             System.out.println("bring to accountChangePage(getSelectedText)");
             details.setText(Jtest.getSelectedValue().toString());
-            int selected = accountList.getSelectedIndex();
+            int selected = Jtest.getSelectedIndex();
             if(selected==-1){
                 JOptionPane.showMessageDialog(this, "Please select an account");
             }
             else{
-                //new CustomerAccountChangePage(//accounts.get(selected));
+                new CustomerAccountChangePage(cust.getAccList().get(selected),cust);
             }
         }
         

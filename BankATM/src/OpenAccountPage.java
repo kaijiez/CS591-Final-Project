@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Font;
 import java.awt.event.*;
 import java.text.NumberFormat;
 public class OpenAccountPage extends JFrame implements ActionListener{
@@ -10,34 +12,43 @@ public class OpenAccountPage extends JFrame implements ActionListener{
     public OpenAccountPage(Customer cust){
         this.cust = cust;
         confirm = new JButton("Confirm open account");
-        confirm.setBounds(400, 650, 200, 100);
+        confirm.setBounds(300, 650, 400, 100);
+        confirm.setFont(new Font("Arial", Font.PLAIN, 30));
         confirm.addActionListener(this);
         add(confirm);
 
         cancel = new JButton("Cancel");
-        cancel.setBounds(400, 850, 100, 50);
+        cancel.setBounds(300, 820, 300, 100);
+        cancel.setFont(new Font("Arial", Font.PLAIN, 40));
         cancel.addActionListener(this);
         add(cancel);
         JLabel type = new JLabel("What type of account would you like to open?");
-        type.setBounds(300, 100, 400, 100);
+        type.setFont(new Font("Arial", Font.PLAIN, 30));
+        type.setBounds(100, 100, 700, 100);
         add(type);
 
         checking = new JRadioButton("Checking");
-        checking.setBounds(300, 302, 100, 50);
+        checking.setBounds(300, 325, 200, 75);
+        checking.setFont(new Font("Arial", Font.PLAIN, 30));
         add(checking);
+        
         savings = new JRadioButton("Savings");
-        savings.setBounds(300, 353, 100, 50);
+        savings.setBounds(300, 400, 200, 75);
+        savings.setFont(new Font("Arial", Font.PLAIN, 30));
         add(savings);
+        
         ButtonGroup group = new ButtonGroup();
         group.add(savings);
         group.add(checking);
         add(savings);
         JLabel amountLabel = new JLabel("How much would you like to deposit to start?");
-        amountLabel.setBounds(400, 250, 400, 100);
+        amountLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+        amountLabel.setBounds(300, 250, 600, 100);
         add(amountLabel);
         NumberFormat amountFormat = NumberFormat.getNumberInstance();
         amount = new JFormattedTextField(amountFormat);
-        amount.setBounds(400, 350, 100, 50);
+        amount.setFont(new Font("Arial", Font.PLAIN, 30));
+        amount.setBounds(500, 350, 250, 200);
         add(amount);
 
 

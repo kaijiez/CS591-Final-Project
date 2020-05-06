@@ -15,21 +15,36 @@ public class CustomerHomePage extends JFrame implements ActionListener{
         setTitle("Home Page");
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JLabel welcome = new JLabel("Welcome"+""/*cust.name*/);
+        welcome.setFont(new Font("Arial", Font.PLAIN, 40));
         welcome.setAlignmentX(CENTER_ALIGNMENT);
         panel.add(welcome);
+        
         newAcc = new JButton("Open a new account");
+        newAcc.setFont(new Font("Arial", Font.PLAIN, 40));
         addAButton(newAcc, panel);
+        
         accounts = new JButton("View accounts");
+        accounts.setFont(new Font("Arial", Font.PLAIN, 40));
         addAButton(accounts, panel);
+        
         transactions = new JButton("View recent Transactions");
+        transactions.setFont(new Font("Arial", Font.PLAIN, 40));
         addAButton(transactions, panel);
+        
         loanApp = new JButton("Apply for a loan");
+        loanApp.setFont(new Font("Arial", Font.PLAIN, 40));
         addAButton(loanApp, panel);
+        
         currLoans = new JButton("View current Loans");
+        currLoans.setFont(new Font("Arial", Font.PLAIN, 40));
         addAButton(currLoans, panel);
+        
         stockMarket = new JButton("View the current Stock Market");
+        stockMarket.setFont(new Font("Arial", Font.PLAIN, 40));
         addAButton(stockMarket, panel);
+        
         logout = new JButton("Logout");
+        logout.setFont(new Font("Arial", Font.PLAIN, 40));
         addAButton(logout, panel);
         
         
@@ -62,19 +77,19 @@ public class CustomerHomePage extends JFrame implements ActionListener{
         }
         else if(source.equals(transactions)){
             System.out.println("transactions button");
-            new CustomerTransactionsPage(); //tentatively done
+            new CustomerTransactionsPage(cust); //tentatively done
         }
         else if(source.equals(stockMarket)){
             System.out.println("Stock market button");
-            //new StockMarketPage(); //tentatively done
+            new StockMarketPage(cust); //tentatively done
         }
         else if(source.equals(loanApp)){
             System.out.println("Loanapp button");
-            //new loanappPage(customer); //tentatively done
+            new LoanAppPage(cust); //tentatively done
         }
         else if(source.equals(currLoans)){
             System.out.println("current loans button");
-            //new CurrentLoansPage(Customer); //tentatively done
+            new CustomerLoansPage(cust);
         }
         else if(source.equals(logout)){
             System.out.println("Logout button"); //done
@@ -94,7 +109,7 @@ public class CustomerHomePage extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-//        new CustomerHomePage("Pat");
+        new CustomerHomePage(new Customer("1","1"));
     }
 
     

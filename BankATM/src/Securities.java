@@ -29,19 +29,20 @@ public class Securities extends Account{
     			int amount = Integer.parseInt(res.get(row).get(2));
     			String name = res.get(row).get(3);
     			
-    			Stock s = new Stock(id,name,originalPrice,amount );
+    			Stock s = new Stock(id,name,0,amount );	//place holder for currenct price for heldstocks
+    			s.setOriginPrice(originalPrice);
     			stocks.add(s);
     			
     		}
     	}
     	
     	//calculate all profit for this account
-    	query="SELECT * FROM Accounts WHERE Account_id = "+account_id;
+    	query="SELECT * FROM Accounts WHERE id = "+account_id;
     	res=SQLite.query(query, new String[]{"StartingAmount"},
     							new String[]{"real"});
     	if(res!=null && res.size()>0){
     		if(res.get(0).get(0)!=null)
-    		total_realized_profit = current_amount-Integer.parseInt(res.get(0).get(0));
+    		total_realized_profit = current_amount-Double.parseDouble(res.get(0).get(0));
     	}
     	
     }
@@ -52,11 +53,15 @@ public class Securities extends Account{
         SQLite.update("Accounts", "id = "+account_id, new String[]{"Amount"}, 
         											  new String[]{Double.toString(this.current_amount += amount)}, 
         											  new String[]{"real"});
+        
+        SQLite.insert("Transactions", new String[]{"Customer_id","Account_id","Amount","Date"}, 
+				  new String[]{customer_id,account_id,Double.toString(amount),getCurrentDate()},
+				  new String[]{"integer","integer","real","text"});
     }
 
 
     //adding a stock to stock collection after purchase
-    public boolean purchase_stock(Stock stock){
+    public boolean purchase_stock(Stock stock, int buyshares){
         if(this.current_amount < stock.getPrice()){
             System.out.println("Insufficient funds in securities to purchase this stock.");
             return false;
@@ -73,7 +78,7 @@ public class Securities extends Account{
     	
     	if(res!=null && res.size()>0){
     		if(res.get(0).get(0)!=null && Integer.parseInt(res.get(0).get(0))>=stock.getAmount()){
-    			int shares = Integer.parseInt(res.get(0).get(0))-stock.getAmount();
+    			int shares = Integer.parseInt(res.get(0).get(0))-buyshares;
     			SQLite.update("StockMarket", "id = "+stock.getId(), new String[]{"Amount"}, 
 																	new String[]{Integer.toString(shares)},
 																	new String[]{"integer"});
@@ -84,7 +89,7 @@ public class Securities extends Account{
     	//add stock to heldstocks in db
     	
 		SQLite.insert("HeldStocks", new String[]{"PriceBoughtAt","StockMarket_id","Account_id","DateBought","Amount"}, 
-									new String[]{Double.toString(stock.getPrice()), stock.getId(),account_id,getCurrentDate()}, 
+									new String[]{Double.toString(stock.getPrice()), stock.getId(),account_id,getCurrentDate(),Integer.toString(buyshares)}, 
 									new String[]{"real","integer","integer","text","integer"});
     	
         return true;
@@ -95,8 +100,9 @@ public class Securities extends Account{
     }
 
     //receiving money from selling stock and removing from owned stock list
-    public void sell_stock(int index){
+    public void sell_stock(int index, int sellshares){
         Stock stock = this.stocks.get(index);
+        System.out.println("stock "+stock);
         this.current_amount += stock.getPrice();
         this.total_realized_profit += stock.get_unrealized_price();
         this.stocks.remove(stock);
@@ -110,7 +116,7 @@ public class Securities extends Account{
     	if(res!=null && res.size()>0){
     		if(res.get(0).get(0)!=null && Integer.parseInt(res.get(0).get(0))>=stock.getAmount()){
     			//add shares of stock back to stockmarket
-    			int shares = Integer.parseInt(res.get(0).get(0))+stock.getAmount();
+    			int shares = Integer.parseInt(res.get(0).get(0))+sellshares;
     			SQLite.update("StockMarket", "id = "+stock.getId(), new String[]{"Amount"}, 
 																	new String[]{Integer.toString(shares)},
 																	new String[]{"integer"});
@@ -118,16 +124,22 @@ public class Securities extends Account{
     		
     	}
         
+    	System.out.println("here");
     	
     	//delete stock from heldstocks table in db
+    	System.out.println(stock.getId());
+    	System.out.println(stock.getOriginalPrice());
+    	System.out.println(account_id);
+    	System.out.println(stock.getAmount());
     	
         query="SELECT id FROM HeldStocks WHERE StockMarket_id = "+stock.getId()+" AND PriceBoughtAt = "+stock.getOriginalPrice()
-        		+" AND Accound_id "+account_id+" AND Amount = "+stock.getAmount();
+        		+" AND Account_id ="+account_id+" AND Amount = "+stock.getAmount();
     	res=SQLite.query(query, new String[]{"id"},
     							new String[]{"integer"});
     	
     	if(res!=null && res.size()>0){
     		int stockId = Integer.parseInt(res.get(0).get(0));
+    		System.out.println("stockid "+stockId);
     		SQLite.delete("HeldStocks", stockId);
     		
     	}

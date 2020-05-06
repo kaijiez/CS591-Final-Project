@@ -1,23 +1,31 @@
 import javax.swing.*;
+
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 public class LoanApprovalPage extends JFrame implements ActionListener{
     BankManager man;
     JButton approve, reject, back;
     JList<String> pendingLoanList;
 
     public LoanApprovalPage(BankManager manager){
-        man = manager;
+        this.man = manager;
         JLabel title = new JLabel("Loans needing approval");
-        title.setBounds(100, 100, 500, 100);
+        title.setFont(new Font("Arial", Font.PLAIN, 30));
+        title.setBounds(100, 50, 500, 100);
         add(title);
 
-        //ArrayList<String> pendingLoans= man.getPendingLoans();
-        pendingLoanList = new JList<String>((String[]) pendingLoans.toArray());
+        ArrayList<String> pendingLoans= man.getAppendingLoans();
+        String[] pendingL=Arrays.copyOf(pendingLoans.toArray(), pendingLoans.toArray().length, String[].class);
+        pendingLoanList = new JList<String>(pendingL);
+        pendingLoanList.setFont(new Font("Arial", Font.PLAIN, 40));
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(pendingLoanList);
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0,30));
         pendingLoanList.setLayoutOrientation(JList.VERTICAL);
-        scrollPane.setBounds(100, 200, 400, 200);
+        scrollPane.setBounds(100, 150, 400, 300);
         add(scrollPane);
 
         ArrayList<String> allLoans = new ArrayList<String>();
@@ -25,29 +33,36 @@ public class LoanApprovalPage extends JFrame implements ActionListener{
             allLoans.add(loan.toString());
             
         }
-
+        String[] allL=Arrays.copyOf(allLoans.toArray(), allLoans.toArray().length, String[].class);
+        
         approve = new JButton("Approve loan");
+        approve.setFont(new Font("Arial", Font.PLAIN, 30));
         approve.addActionListener(this);
-        approve.setBounds(600, 200, 200, 100);
+        approve.setBounds(600, 200, 300, 100);
         add(approve);
 
         reject = new JButton("Reject loan");
+        reject.setFont(new Font("Arial", Font.PLAIN, 30));
         reject.addActionListener(this);
-        reject.setBounds(600, 300, 200, 100);
+        reject.setBounds(600, 300, 300, 100);
         add(reject);
 
         JLabel allLabel = new JLabel("All loans out now");
-        allLabel.setBounds(100, 450, 300, 50);
+        allLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+        allLabel.setBounds(100, 500, 300, 100);
         add(allLabel);
-        JList<String> allLoanList = new JList<String>((String[]) allLoans.toArray());
+        JList<String> allLoanList = new JList<String>(allL);
+        allLoanList.setFont(new Font("Arial", Font.PLAIN, 30));
         JScrollPane scrollPane2 = new JScrollPane();
+        scrollPane2.getHorizontalScrollBar().setPreferredSize(new Dimension(0,30));
         scrollPane2.setViewportView(allLoanList);
         allLoanList.setLayoutOrientation(JList.VERTICAL);
-        scrollPane2.setBounds(100, 501, 400, 200);
+        scrollPane2.setBounds(100, 600, 400, 300);
         add(scrollPane2);
 
         back = new JButton("Back");
-        back.setBounds(400, 820, 300, 100);
+        back.setFont(new Font("Arial", Font.PLAIN, 30));
+        back.setBounds(600, 820, 300, 100);
         back.addActionListener(this);
         add(back);
 
@@ -69,11 +84,12 @@ public class LoanApprovalPage extends JFrame implements ActionListener{
         }
         else if(source.equals(approve)){
             int selected = pendingLoanList.getSelectedIndex();
+            System.out.println("selected "+selected);
             if(selected==-1){
                 JOptionPane.showMessageDialog(this, "Please select a loan to approve");
             }
             else{
-                //man.approveLoan(pendingLoans.get(selected),true);
+                man.approveLoan(man.getPendingLoans().get(selected),true);
                 JOptionPane.showMessageDialog(this, "Loan approved!");
 
             }
@@ -84,7 +100,7 @@ public class LoanApprovalPage extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(this, "Please select a loan to Reject");
             }
             else{
-                //man.approveLoan(pendingLoans.get(selected),false);
+                man.approveLoan(man.getPendingLoans().get(selected),false);
                 JOptionPane.showMessageDialog(this, "Loan rejected!");
 
             }

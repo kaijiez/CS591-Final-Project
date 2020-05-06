@@ -6,8 +6,8 @@ Kaijie Zhou - U54295267
 Cathy Kim - U51788489
 
 Compilation Instructions:
-javac -cp ".;sqlite-jdbc-3.30.1.jar" BankDriver.java
-java -cp ".;sqlite-jdbc-3.30.1.jar" BankDriver.java
+javac BankDriver.java
+java BankDriver
 
 Usability of each class:
 Account: Abstract superclass that has general attributes (i.e. current amount) and methods to checkings, saving and securities accounts
@@ -49,4 +49,3 @@ ManagerHomePage: admin's main page which offers options like customer overview /
 StartUpPage: Page where users can choose to either login or create a new account
 StockMarketPage: page where users can see open positions in stock market
 SecuritiesEditPage: page where customers can buy/sell their stock
-

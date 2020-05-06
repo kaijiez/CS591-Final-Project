@@ -8,7 +8,17 @@ public class StockMarket {
     
     public StockMarket(){
     	allStocks = new ArrayList<Stock>();
-    	allStocks.add(new Stock("0","preimeum testing stock",100,999));
+//    	allStocks.add(new Stock("0","preimeum testing stock",100,999));
+    	try{
+    		System.out.println("once");
+    		SQLite.insert("StockMarket", new String[]{"id","Name","Price","Amount"}, 
+    									 new String[]{"0","Unlimited Stonk","100","999"}, 
+    									 new String[]{"integer","text","real","integer"});
+    	}
+    	catch(Exception e){
+    		SQLite.update("StockMarket", "id = 0", new String[]{"Amount"}, new String[]{"999"}, new String[]{"integer"});
+    	}
+    	
     	init();
     }
     
@@ -20,6 +30,7 @@ public class StockMarket {
     	
     	if(res!=null){
     		for(int row=0; row<res.size();row++){
+    			
                 allStocks.add(new Stock(res.get(row).get(0),res.get(row).get(1), 
                 		Double.parseDouble(res.get(row).get(2)), 
                 		Integer.parseInt(res.get(row).get(3))));
@@ -52,7 +63,7 @@ public class StockMarket {
     	return allStocks;
     }
 
-    public ArrayList<Stock> get_open_positions(){
+    public static ArrayList<Stock> get_open_positions(){
     	ArrayList<Stock> open_positions= new ArrayList<Stock>();
     	for(Stock s: allStocks){
     		if(s.getAmount()>0){
@@ -76,12 +87,16 @@ public class StockMarket {
     
     public void removeStock(String id){
     	
+    	
     	SQLite.delete("StockMarket", Integer.parseInt(id));
-    	for(Stock s: allStocks){
-    		if(s.getId().equals("id")){
-    			allStocks.remove(s);
+    	Iterator<Stock> it=allStocks.iterator();
+    	while(it.hasNext()){
+    		Stock s= it.next();
+    		if(s.getId().equals(id)){
+    			it.remove();
     		}
     	}
+    	
     }
 
 

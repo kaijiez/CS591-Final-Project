@@ -14,9 +14,15 @@ public class LoginPage extends JFrame implements ActionListener{
         
         username = new JLabel("username");
         password = new JLabel("password");
+        username.setFont(new Font("Arial", Font.PLAIN, 40));
+        password.setFont(new Font("Arial", Font.PLAIN, 40));
         usernameField = new JTextField();
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 40));
         passwordField = new JPasswordField();
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 40));
         login = new JButton("Login");
+        login.setPreferredSize(new Dimension(300, 300));
+        login.setFont(new Font("Arial", Font.PLAIN, 40));
         login.addActionListener(this);
         setTitle("LOGIN FORM");
         // username.setBounds(80, 70, 200, 30);
@@ -32,7 +38,7 @@ public class LoginPage extends JFrame implements ActionListener{
         panel.add(login);
         add(panel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 500);
+        setSize(1000, 1000);
         setLocation(500,500);
         setVisible(true);
     }
@@ -56,7 +62,7 @@ public class LoginPage extends JFrame implements ActionListener{
         //check for bankmanager login
         else if(manager.logIn()){
         	System.out.println("Success! Moving to Manager home page");
-            new ManagerHomePage("admin");
+            new ManagerHomePage("admin", "admin");
             setVisible(false);
             dispose();
         }
@@ -64,38 +70,13 @@ public class LoginPage extends JFrame implements ActionListener{
         	System.out.println("Login unsuccessful, invalid username or password");
         }
         
-//        if(user.equals("boop")){
-//            if(passTry.equals("boop")){
-//                System.out.println("Success! moving to main page");
-//                new CustomerHomePage(user);
-//                setVisible(false);
-//                dispose();
-//            }
-//            else{
-//                System.out.println("Login unsuccessful, invalid username or password");       
-//            }
-//        }
-//        else if(user.equals("admin")){//backend check if admin, if true, new admin page
-//            if(passTry.equals("admin")){
-//                System.out.println("Success! Moving to Manager home page");
-//                new ManagerHomePage("admin");
-//                setVisible(false);
-//                dispose();
-//            }
-//            else{
-//                System.out.println("Login unsuccessful, invalid username or password");
-//            }
-//        }
-//        else{
-//            System.out.println("Login unsuccessful, invalid username or password");       
-//        }
 
     }
 
     
 
     public static void main(String[] args) {
-        JFrame frame = new LoginPage();
+        new LoginPage();
         
     }
 }

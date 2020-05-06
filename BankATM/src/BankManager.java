@@ -15,7 +15,7 @@ public class BankManager extends BankUser {
 	
 	// verify if this person is bank manager
 	public boolean logIn(){
-		if(Username==_Username && Password==_Password){
+		if(Username.equals(_Username) && Password.equals(_Password)){
 			return true;
 		}
 		return false;
@@ -49,7 +49,7 @@ public class BankManager extends BankUser {
 	public ArrayList<Account> lookUpAllAccounts(){
 		//get all accounts from db
 		ArrayList<Account> acc= new ArrayList<Account>();
-		String query="SELECT * FROM Accounts WHERE Customer_id = "+id;
+		String query="SELECT * FROM Accounts";
 		ArrayList<ArrayList<String>> res=SQLite.query(query, new String[]{"id","Type","Amount","Customer_id","DateCreated"}, 
 															 new String[]{"integer","text","real","integer","text"});
 		if(res!=null){
@@ -136,15 +136,39 @@ public class BankManager extends BankUser {
 				
 		
 	}
+
+	// get daily transaction by date from the database
+	public ArrayList<String> getAllTransactions(){
+	    ArrayList<String> ret = new ArrayList<>();
+		String display="";
+		ArrayList<ArrayList<String>> res;
+		String query="SELECT Username, Type, a.id, t.amount, Date FROM Transactions t "
+				+ "INNER JOIN Customers c ON t.Customer_id = c.id "
+				+ "INNER JOIN Accounts a ON t.Account_id = a.id ";
+		res=SQLite.query(query, new String[]{"Username","Type","id","amount","Date"},
+				new String[]{"text","text","integer","real","text"});
+		if(res!=null){
+			for(int row = 0;row<res.size();row++){
+				display ="User: "+res.get(row).get(0)+" on "+res.get(row).get(1)+" id: "+res.get(row).get(2)+
+						" make a transaction of "+res.get(row).get(3)+" on "+res.get(row).get(4)+"\n";
+				ret.add(display);
+			}
+		}
+		return ret;
+
+	}
 	
 	// get daily transaction by date from the database
 	public String viewDailyTransactions(String date){
+		String[] string = date.split("-");
+		String today = string[1] + "/" + string[2];
+		System.out.println("today"+today);
 		String display="";
 		ArrayList<ArrayList<String>> res;
 		String query="SELECT Username, Type, a.id, t.amount, Date FROM Transactions t "
 				+ "INNER JOIN Customers c ON t.Customer_id = c.id "
 				+ "INNER JOIN Accounts a ON t.Account_id = a.id "
-				+ "WHERE Date = "+date;
+				+ "WHERE Date = '"+today+"'";
 		res=SQLite.query(query, new String[]{"Username","Type","id","amount","Date"}, 
 							new String[]{"text","text","integer","real","text"});
 		if(res!=null){
@@ -182,6 +206,33 @@ public class BankManager extends BankUser {
 			}
 		}
 		return display;
+	}
+	
+	public ArrayList<Loan> getPendingLoans(){
+		String query="SELECT id, Amount, Customer_id, Collateral, ApplyDate, Interest FROM Loans WHERE ApproveDate IS NULL";
+		ArrayList<ArrayList<String>> res;
+		res=SQLite.query(query, new String[]{"id","Amount","Customer_id","Collateral","ApplyDate","Interest"}, 
+							new String[]{"integer","real","integer","text","text","real"});
+		ArrayList<Loan> display=new ArrayList<Loan>();
+		if(res!=null){
+			for(int row = 0;row<res.size();row++){
+				String id=res.get(row).get(0);
+				double amount = Double.parseDouble(res.get(row).get(1));
+				String customer_id = res.get(row).get(2);
+				String collateral = res.get(row).get(3);
+				String applyDate = res.get(row).get(4);
+				double interest = Double.parseDouble(res.get(row).get(5));
+				Loan l = new Loan(id,amount,new Collateral(collateral),interest);
+				l.setApplyDate(applyDate);
+				display.add(l);
+			}
+		}
+		return display;
+	}
+	
+	
+	public StockMarket getStockMarket(){
+		return stockMarket;
 	}
 	
 }

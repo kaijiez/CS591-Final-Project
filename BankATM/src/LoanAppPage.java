@@ -1,44 +1,53 @@
 import javax.swing.*;
+
+import java.awt.Font;
 import java.awt.event.*;
 import java.text.NumberFormat;
 
 public class LoanAppPage extends JFrame implements ActionListener{
-    //Customer cust;
+    Customer cust;
     JButton confirm, back;
     JFormattedTextField amount;
     JTextField collateral;
-    public LoanAppPage(/*customer customer*/){
-        //cust = customer;
+    public LoanAppPage(Customer cust){
+        this.cust = cust;
         JLabel title = new JLabel("Welcome to the loan application page");
-        title.setBounds(100, 100, 500, 20);
+        title.setBounds(100, 100, 700, 100);
+        title.setFont(new Font("Arial", Font.PLAIN, 40));
         add(title);
 
         JLabel amntLabel = new JLabel("Please enter an amount");
-        amntLabel.setBounds(100, 270, 200, 30);
+        amntLabel.setBounds(100, 270, 400, 30);
+        amntLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         add(amntLabel);
 
         JLabel collatLabel = new JLabel("Please enter a collateral to be used");
-        collatLabel.setBounds(100, 420, 300, 30);
+        collatLabel.setBounds(100, 620, 500, 30);
+        collatLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         add(collatLabel);
 
 
         NumberFormat amountFormat = NumberFormat.getNumberInstance();
         amount = new JFormattedTextField(amountFormat);
-        amount.setBounds(100, 302, 200, 100);
+        amount.setFont(new Font("Arial", Font.PLAIN, 30));
+        amount.setBounds(100, 302, 300, 200);
         add(amount);
 
         collateral = new JTextField();
-        collateral.setBounds(100, 450, 200, 100);
+        collateral.setFont(new Font("Arial", Font.PLAIN, 30));
+        collateral.setBounds(100, 650, 300, 200);
         add(collateral);
         
         confirm = new JButton("Confirm Application");
         confirm.addActionListener(this);
-        confirm.setBounds(400, 550, 300, 100);
+        confirm.setFont(new Font("Arial", Font.PLAIN, 30));
+        confirm.setBounds(650, 550, 300, 100);
         add(confirm);
 
 
         back = new JButton("Back");
-        back.setBounds(400, 750, 300, 100);
+        back.setBounds(650, 700, 300, 100);
+        back.setFont(new Font("Arial", Font.PLAIN, 30));
         back.addActionListener(this);
         add(back);
 
@@ -61,6 +70,8 @@ public class LoanAppPage extends JFrame implements ActionListener{
             dispose();
         }
         else if(source.equals(confirm)){
+        	 ((Number)amount.getValue()).doubleValue();
+        	cust.requestLoans(((Number)amount.getValue()).doubleValue(),collateral.getText());
             
             //logic to add the new loan to the queue??
             // if(true){
@@ -74,6 +85,6 @@ public class LoanAppPage extends JFrame implements ActionListener{
     }
     
     public static void main(String[] args) {
-        new LoanAppPage();
+        new LoanAppPage(new Customer("dfd","htgh"));
     }
 }
