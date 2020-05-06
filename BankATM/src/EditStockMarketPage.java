@@ -4,7 +4,9 @@ import java.util.*;
 public class EditStockMarketPage extends JFrame implements ActionListener{
     JButton back, delete, addNew;
     JList<String> availStocks;
-    public EditStockMarketPage(){
+    StockMarket s;
+    public EditStockMarketPage(StockMarket mk){
+        this.s = mk;
         JLabel title = new JLabel("Edit Stock Market");
         title.setBounds(100, 100, 200, 50);
         add(title);
@@ -47,7 +49,8 @@ public class EditStockMarketPage extends JFrame implements ActionListener{
         }
         else if(source.equals(delete)){
             int selected = availStocks.getSelectedIndex();
-            StockMarket.removeStock(StockMarket.get_open_positions().get(selected).getid());
+            String id = (StockMarket.get_open_positions().get(selected).getId());
+            this.s.removeStock(id);
             JOptionPane.showMessageDialog(this, "Successfully removed stock");
             dispose();
         }

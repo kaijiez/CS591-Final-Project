@@ -7,12 +7,12 @@ public class LoanApprovalPage extends JFrame implements ActionListener{
     JList<String> pendingLoanList;
 
     public LoanApprovalPage(BankManager manager){
-        man = manager;
+        this.man = manager;
         JLabel title = new JLabel("Loans needing approval");
         title.setBounds(100, 100, 500, 100);
         add(title);
 
-        //ArrayList<String> pendingLoans= man.getPendingLoans();
+        ArrayList<String> pendingLoans= man.getAppendingLoans();
         pendingLoanList = new JList<String>((String[]) pendingLoans.toArray());
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setViewportView(pendingLoanList);

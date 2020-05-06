@@ -136,6 +136,27 @@ public class BankManager extends BankUser {
 				
 		
 	}
+
+	// get daily transaction by date from the database
+	public ArrayList<String> getAllTransactions(){
+	    ArrayList<String> ret = new ArrayList<>();
+		String display="";
+		ArrayList<ArrayList<String>> res;
+		String query="SELECT Username, Type, a.id, t.amount, Date FROM Transactions t "
+				+ "INNER JOIN Customers c ON t.Customer_id = c.id "
+				+ "INNER JOIN Accounts a ON t.Account_id = a.id ";
+		res=SQLite.query(query, new String[]{"Username","Type","id","amount","Date"},
+				new String[]{"text","text","integer","real","text"});
+		if(res!=null){
+			for(int row = 0;row<res.size();row++){
+				display ="User: "+res.get(row).get(0)+" on "+res.get(row).get(1)+" id: "+res.get(row).get(2)+
+						" make a transaction of "+res.get(row).get(3)+" on "+res.get(row).get(4)+"\n";
+				ret.add(display);
+			}
+		}
+		return ret;
+
+	}
 	
 	// get daily transaction by date from the database
 	public String viewDailyTransactions(String date){
@@ -146,7 +167,7 @@ public class BankManager extends BankUser {
 		String query="SELECT Username, Type, a.id, t.amount, Date FROM Transactions t "
 				+ "INNER JOIN Customers c ON t.Customer_id = c.id "
 				+ "INNER JOIN Accounts a ON t.Account_id = a.id "
-				+ "WHERE Date = "+date;
+				+ "WHERE Date = "+today;
 		res=SQLite.query(query, new String[]{"Username","Type","id","amount","Date"}, 
 							new String[]{"text","text","integer","real","text"});
 		if(res!=null){

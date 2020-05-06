@@ -11,7 +11,7 @@ public class ManagerTransactionsPage extends JFrame implements ActionListener{
 
 
 
-        String[] allTransactions = manager.viewDailyTransactions(LocalDate.now().toString()).split("\n");
+        String[] allTransactions = (String[]) manager.getAllTransactions().toArray();
         
         JList<String> accsList = new JList<String>(allTransactions);
 

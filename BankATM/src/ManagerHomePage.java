@@ -51,19 +51,19 @@ public class ManagerHomePage extends JFrame implements ActionListener{
         }
         else if(source.equals(transactions)){
             System.out.println("transactions button");
-            //new ManagerTransactionsPage(); //tentatively done
+            new ManagerTransactionsPage(this.man);
         }
         else if(source.equals(editStockMarket)){
             System.out.println("Edit Stock Market Button");
-            //new EditStockMarketPage(); //tentatively done
+            new EditStockMarketPage();
         }
         else if(source.equals(loans)){
             System.out.println("Loans button");
-            //new loanApprovalPage();
+            new LoanApprovalPage(this.man);
         }
         else if(source.equals(todayTransactions)){
             System.out.println("Today's Transactions");
-            //new ManTransactionsPage(); //tentatively implemented
+            new ManTransactionsPage(this.man);
         }
         else if(source.equals(logout)){
             System.out.println("Logout button");
@@ -80,9 +80,9 @@ public class ManagerHomePage extends JFrame implements ActionListener{
         container.add(button);
     }
 
-    public static void main(String[] args) {
-        new ManagerHomePage("Pat");
-    }
+//    public static void main(String[] args) {
+//        new ManagerHomePage("Pat");
+//    }
 
     
 }

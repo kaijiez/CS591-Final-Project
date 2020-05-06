@@ -63,6 +63,6 @@ public class StockMarketPage extends JFrame implements ActionListener {
     }
     
     public static void main(String[] args) {
-        new StockMarketPage(/*customer here!*/);
+//        new StockMarketPage(/*customer here!*/);
     }
 }
